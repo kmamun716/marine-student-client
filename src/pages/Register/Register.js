@@ -10,13 +10,13 @@ const Register = () => {
     const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm();
     const navigate = useNavigate();
     const onSubmit = async data => {
-        const { email, password, confirmPassword, mobile, gender } = data;
+        const { name, email, password, confirmPassword, mobile, gender } = data;
         if (password !== confirmPassword) {
             setError('notMatched', { type: 'custom', message: 'Password Not Matched' });
         } else {
             clearErrors()
             try {
-                const student = await axios.post('http://localhost:4000/api/v1/auth/register', { email, password, mobile, gender });
+                const student = await axios.post('http://localhost:4000/api/v1/auth/register', { name, email, password, mobile, gender });
                 if (student?.status === 201) {
                     toast.success(student?.data?.message)
                     navigate('/login')
@@ -33,6 +33,18 @@ const Register = () => {
             <h2 className='text-xl text-center'>Register Here</h2>
             <div className='flex flex-col items-center'>
                 <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                            <span className="label-text">Your Name:</span>
+                        </label>
+                        <FormInput
+                            type='text'
+                            name='name'
+                            placeholder='Type Your Name'
+                            register={register}
+                        />
+                        {errors?.name && <p className='text-red-500'>Please Input Your Name</p>}
+                    </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
                             <span className="label-text">Email:</span>

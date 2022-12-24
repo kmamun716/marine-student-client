@@ -1,11 +1,11 @@
 import React from 'react';
 
-const NotFound = () => {
+const Pending = () => {
     return (
         <div>
-            Page Not Found
+            
         </div>
     );
 };
 
-export default NotFound;
+export default Pending;

@@ -1,30 +1,37 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import FormInput from '../../components/shared/FormInput';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    let navigate = useNavigate();
+    let location = useLocation();
+    const token = localStorage.getItem('authToken');
+    let from = location.state?.from?.pathname || "/";
     const onSubmit = async data => {
         try {
             const student = await axios.post('http://localhost:4000/api/v1/auth/login', data);
-            console.log(student)
-            if(student?.status === 200){
+            if (student?.status === 200) {
                 toast.success(student?.data?.message)
-                localStorage.setItem('authToken', student?.data?.token)                
+                localStorage.setItem('authToken', student?.data?.token)
             }
-            if(student?.status === 204){
+            if (student?.status === 204) {
                 toast.error('Password Not Matched')
             }
         } catch (err) {
-            console.log(err)
             if (err?.response?.data?.message) {
                 toast.error(err?.response?.data?.message)
             }
         }
     };
+    useEffect(() => {
+        if (token) {
+            navigate(from, { replace: true });
+        }
+    }, [from, navigate, token])
     return (
         <div>
             <h2 className='text-xl text-center underline'>Login Here</h2>
@@ -54,7 +61,7 @@ const Login = () => {
                         />
                         {errors?.password && <p className='text-red-500'>Please Provide Password</p>}
                     </div>
-                    
+
                     <input className='btn btn-accent my-2' type="submit" value='Login' />
                 </form>
                 <p>Not Have Any Account? <Link className="link link-neutral" to='/register'>Register Here</Link></p>
