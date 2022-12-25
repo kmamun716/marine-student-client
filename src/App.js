@@ -23,7 +23,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/student/:id' element={<SingleStudent />} />
+        <Route path='/student/:slug' element={<SingleStudent />} />
         <Route path='/dashboard' element={<RequireAuth><Dashboard /></RequireAuth>} >
           <Route index element={<Profile/>} />
           <Route path='/dashboard/all-student' element={<RequireAdmin><AllStudent/></RequireAdmin>} />

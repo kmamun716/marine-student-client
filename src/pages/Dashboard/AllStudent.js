@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Loading from '../../components/shared/Loading';
 import Paginate from '../../components/shared/Paginate';
 
@@ -28,7 +29,7 @@ const AllStudent = () => {
         if (select === "admin") {
             setRecord(admin)
         }
-    }, [select])
+    }, [select, data])
 
     if (isLoading) {
         return <Loading />
@@ -61,7 +62,7 @@ const AllStudent = () => {
                     <tbody>
                         {currentRecords?.map((student, index) => <tr key={student?.id}>
                             <th>{index + 1}</th>
-                            <td>{student?.name}</td>
+                            <td className='link link-hover text-info'><Link to={`/student/${student?.name.replace(/\s+/g, "-")}`} state={student?.id}>{student?.name}</Link></td>
                             <td>{student?.email}</td>
                             <td>{student?.role}</td>
                             <td>{student?.status}</td>
