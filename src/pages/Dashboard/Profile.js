@@ -36,17 +36,17 @@ const Profile = () => {
       </div>
       <div className="mt-3">
       {
-        studentDetails?.employment_info ? '' : <Link className="link link-hover text-primary" to='/student/details/add'>Add Employment Details</Link>
+        studentDetails?.employment_info ? '' : <Link className="link link-hover text-primary" to='/student/details/add/employment'>Add Employment Details</Link>
       }
       </div>
       <div className="mt-3">
       {
-        studentDetails?.academic_info ? '' : <Link className="link link-hover text-primary" to='/student/details/add'>Add Academic Details</Link>
+        studentDetails?.academic_info ? '' : <Link className="link link-hover text-primary" to='/student/details/add/academic'>Add Academic Details</Link>
       }
       </div>
       <div className="mt-3">
       {
-        studentDetails?.academic_info ? '' : <Link className="link link-hover text-primary" to='/student/details/add'>Add Others Details</Link>
+        studentDetails?.others_info ? '' : <Link className="link link-hover text-primary" to='/student/details/add/others'>Add Others Details</Link>
       }
       </div>
     </div>

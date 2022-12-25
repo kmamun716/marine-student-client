@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import App from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { ThemeProvider } from "@material-tailwind/react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -16,9 +15,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
+        <App />
       </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>

@@ -1,72 +1,35 @@
-import React, { useState } from "react";
-import {
-  Accordion,
-  AccordionHeader,
-  AccordionBody,
-} from "@material-tailwind/react";
-import AddPersonalDetails from "./AddPersonalDetails";
-import AddEmploymentDetails from "./AddEmploymentDetails";
-import AddAcademicDetails from "./AddAcademicDetails";
-import AddOtherDetails from "./AddOtherDetails";
-
-function Icon({ id, open }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className={`${
-        id === open ? "rotate-180" : ""
-      } h-5 w-5 transition-transform`}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-    </svg>
-  );
-}
+import React from "react";
+import { Link, Outlet } from "react-router-dom";
 
 const AddDetails = () => {
-  const [open, setOpen] = useState(0);
-
-  const handleOpen = (value) => {
-    setOpen(open === value ? 0 : value);
-  };
   return (
-    <div>
-      <div className="tabs">
-        <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
-          <AccordionHeader onClick={() => handleOpen(1)}>
-            Add Personal Details
-          </AccordionHeader>
-          <AccordionBody>
-            <AddPersonalDetails/>
-          </AccordionBody>
-        </Accordion>
-        <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
-          <AccordionHeader onClick={() => handleOpen(2)}>
-            Add Employment Details
-          </AccordionHeader>
-          <AccordionBody>
-            <AddEmploymentDetails />
-          </AccordionBody>
-        </Accordion>
-        <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
-          <AccordionHeader onClick={() => handleOpen(3)}>
-            Add Academic Details
-          </AccordionHeader>
-          <AccordionBody>
-            <AddAcademicDetails/>
-          </AccordionBody>
-        </Accordion>
-        <Accordion open={open === 4} icon={<Icon id={4} open={open} />}>
-          <AccordionHeader onClick={() => handleOpen(4)}>
-            Add Others Details
-          </AccordionHeader>
-          <AccordionBody>
-            <AddOtherDetails/>
-          </AccordionBody>
-        </Accordion>
+    <div className="drawer drawer-mobile">
+      <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content flex flex-col items-center">
+        <div className="mb-2">
+        <label
+          htmlFor="my-drawer"
+          className="btn btn-primary drawer-button btn-sm lg:hidden"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+        </label>
+        </div>
+        <Outlet />
+        
+      </div>
+      <div className="drawer-side">
+        <label htmlFor="my-drawer" className="drawer-overlay"></label>
+        <ul className="menu p-4 w-80 bg-base-100 text-base-content">
+          <li>
+            <Link to="/student/details/add/employment">Add Employment</Link>
+          </li>
+          <li>
+            <Link to="/student/details/add/academic">Add Academic</Link>
+          </li>
+          <li>
+            <Link to="/student/details/add/others">Add Others</Link>
+          </li>
+        </ul>
       </div>
     </div>
   );

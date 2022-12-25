@@ -35,7 +35,12 @@ function App() {
           <Route path='/dashboard/pending' element={<RequireAdmin><Pending/></RequireAdmin>} />
         </Route>
         {/* update student details */}
-        <Route path='/student/details/add' element={<RequireAuth><AddDetails/></RequireAuth>}/>
+        <Route path='/student/details/add' element={<RequireAuth><AddDetails/></RequireAuth>}>
+          <Route index element={<AddPersonalDetails/>} />
+          <Route path='/student/details/add/employment' element={<AddEmploymentDetails/>} />
+          <Route path='/student/details/add/academic' element={<AddAcademicDetails/>} />
+          <Route path='/student/details/add/others' element={<AddOtherDetails/>} />
+        </Route>
         <Route to='/student/details/:id' element={<StudentDetails/>}/>
         <Route path='*' element={<NotFound />} />
       </Routes>
