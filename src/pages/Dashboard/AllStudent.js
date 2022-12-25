@@ -5,7 +5,7 @@ import Loading from '../../components/shared/Loading';
 import Paginate from '../../components/shared/Paginate';
 
 const AllStudent = () => {
-    const [select, setSelct] = useState('all')
+    const [select, setSelct] = useState('all');
     const [currentPage, setCurrentPage] = useState(1);
     const [record, setRecord] = useState([]);
     const { data, isLoading } = useQuery(['students'], async () => {

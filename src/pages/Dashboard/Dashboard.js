@@ -25,7 +25,7 @@ const Dashboard = () => {
                         {
                             student?.role === "admin" && <>
                                 <li><Link to='/dashboard/all-student'>Student List</Link></li>
-                                <li><Link to='/dashboard/pending'>Pending</Link></li>
+                                <li><Link to='/dashboard/pending'>Pending Student</Link></li>
                             </>
                         }
                     </ul>
@@ -37,11 +37,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-/**
-    1. profile
-    2. details
-    admin
-    3. all user access
-    4. pending user
-    
-*/
