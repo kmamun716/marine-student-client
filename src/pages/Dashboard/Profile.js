@@ -4,6 +4,7 @@ import useGetSingleUser from "../../hooks/useGetSingleUser";
 import useGetUserById from "../../hooks/useGetUserById";
 import male from '../../asstes/images/male.png';
 import female from '../../asstes/images/female.jpg';
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const token = localStorage.getItem("authToken");
@@ -29,18 +30,23 @@ const Profile = () => {
       <div className="mt-3">
       {
         studentDetails?.personal_info ? <div>
-            
-        </div> : <p>Please Add Your Personal Info</p>
+
+        </div> : <Link className="link link-hover text-primary" to='/student/details/add'>Add Personal Details</Link>
       }
       </div>
       <div className="mt-3">
       {
-        studentDetails?.employment_info ? '' : <p>Please Add Your Employment Info</p>
+        studentDetails?.employment_info ? '' : <Link className="link link-hover text-primary" to='/student/details/add'>Add Employment Details</Link>
       }
       </div>
       <div className="mt-3">
       {
-        studentDetails?.academic_info ? '' : <p>Please Add Your Academic Info</p>
+        studentDetails?.academic_info ? '' : <Link className="link link-hover text-primary" to='/student/details/add'>Add Academic Details</Link>
+      }
+      </div>
+      <div className="mt-3">
+      {
+        studentDetails?.academic_info ? '' : <Link className="link link-hover text-primary" to='/student/details/add'>Add Others Details</Link>
       }
       </div>
     </div>
