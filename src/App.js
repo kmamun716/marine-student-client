@@ -13,6 +13,11 @@ import Login from './pages/Login/Login';
 import NotFound from './pages/NotFound/NotFound';
 import Register from './pages/Register/Register';
 import SingleStudent from './pages/SingleStudent/SingleStudent';
+import AddAcademicDetails from './pages/StudentDetails/AddAcademicDetails';
+import AddDetails from './pages/StudentDetails/AddDetails';
+import AddEmploymentDetails from './pages/StudentDetails/AddEmploymentDetails';
+import AddOtherDetails from './pages/StudentDetails/AddOtherDetails';
+import AddPersonalDetails from './pages/StudentDetails/AddPersonalDetails';
 import StudentDetails from './pages/StudentDetails/StudentDetails';
 
 function App() {
@@ -30,7 +35,8 @@ function App() {
           <Route path='/dashboard/pending' element={<RequireAdmin><Pending/></RequireAdmin>} />
         </Route>
         {/* update student details */}
-        <Route to='/student/details/:id' element={<RequireAuth><StudentDetails/></RequireAuth>}/>
+        <Route path='/student/details/add' element={<RequireAuth><AddDetails/></RequireAuth>}/>
+        <Route to='/student/details/:id' element={<StudentDetails/>}/>
         <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer/>

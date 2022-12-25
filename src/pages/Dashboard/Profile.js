@@ -28,7 +28,9 @@ const Profile = () => {
       </div>
       <div className="mt-3">
       {
-        studentDetails?.personal_info ? '' : <p>Please Add Your Personal Info</p>
+        studentDetails?.personal_info ? <div>
+            
+        </div> : <p>Please Add Your Personal Info</p>
       }
       </div>
       <div className="mt-3">
