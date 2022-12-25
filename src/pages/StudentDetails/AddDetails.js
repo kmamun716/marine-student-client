@@ -21,6 +21,9 @@ const AddDetails = () => {
         <label htmlFor="my-drawer" className="drawer-overlay"></label>
         <ul className="menu p-4 w-80 bg-base-100 text-base-content">
           <li>
+            <Link to="/student/details/add">Add Personal Info</Link>
+          </li>
+          <li>
             <Link to="/student/details/add/employment">Add Employment</Link>
           </li>
           <li>

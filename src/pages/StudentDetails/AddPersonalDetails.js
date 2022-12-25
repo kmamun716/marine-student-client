@@ -1,10 +1,26 @@
+import axios from 'axios';
 import React from "react";
 import { useForm } from "react-hook-form";
+import { toast } from 'react-toastify';
 
 const AddPersonalDetails = () => {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
+  const token = localStorage.getItem('authToken');
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = async (data) => {
+    try {
+      const res = await axios.post('http://localhost:4000/api/v1/student/addPersonal', data, {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      });
+      if(res.status === 201){
+        toast.success('Personal Details Added Successfully')
+      }
+    } catch (err) {
+      if (err?.response?.data?.message) {
+        toast.error(err?.response?.data?.message)
+      }
+    }
   };
   return (
     <div>
@@ -22,6 +38,7 @@ const AddPersonalDetails = () => {
                 className="input input-bordered w-full max-w-xs"
                 {...register("father", { required: true })}
               />
+              {errors?.father && <p className="text-red-500">Father Name is Required</p>}
             </div>
             <div className="form-control w-64 max-w-xs">
               <label className="label">
@@ -31,8 +48,9 @@ const AddPersonalDetails = () => {
                 type="text"
                 placeholder="Mother Name"
                 className="input input-bordered w-full max-w-xs"
-                {...register("father", { required: true })}
+                {...register("mother", { required: true })}
               />
+              {errors?.mother && <p className="text-red-500">Mother Name is Required</p>}
             </div>
             <div className="form-control w-64 max-w-xs">
               <label className="label">
@@ -40,10 +58,11 @@ const AddPersonalDetails = () => {
               </label>
               <input
                 type="text"
-                placeholder="Birthdate"
+                placeholder="Birth Date"
                 className="input input-bordered w-full max-w-xs"
-                {...register("birthDate", { required: true })}
+                {...register("dateOfBirth", { required: true })}
               />
+              {errors?.dateOfBirth && <p className="text-red-500">Birth Date is Required</p>}
             </div>
             <div className="form-control w-64 max-w-xs">
               <label className="label">
@@ -55,6 +74,7 @@ const AddPersonalDetails = () => {
                 className="input input-bordered w-full max-w-xs"
                 {...register("presentAddress", { required: true })}
               />
+              {errors?.presentAddress && <p className="text-red-500">Present Address is Required</p>}
             </div>
             <div className="form-control w-64 max-w-xs">
               <label className="label">
@@ -66,6 +86,7 @@ const AddPersonalDetails = () => {
                 className="input input-bordered w-full max-w-xs"
                 {...register("permanentAddress", { required: true })}
               />
+              {errors?.permanentAddress && <p className="text-red-500">Permanent Address is Required</p>}
             </div>
             <div className="form-control w-64 max-w-xs">
               <label className="label">
@@ -77,19 +98,33 @@ const AddPersonalDetails = () => {
                 className="input input-bordered w-full max-w-xs"
                 {...register("nId", { required: true })}
               />
+              {errors?.nId && <p className="text-red-500">National ID is Required</p>}
             </div>
           </div>
           <div>
             <div className="form-control w-64 max-w-xs">
               <label className="label">
-                <span className="label-text">Relegion:</span>
+                <span className="label-text">Blood Group:</span>
               </label>
               <input
                 type="text"
-                placeholder="Relegion"
+                placeholder="Blood Group"
                 className="input input-bordered w-full max-w-xs"
-                {...register("father", { required: true })}
+                {...register("bloodGroup", { required: true })}
               />
+              {errors?.bloodGroup && <p className="text-red-500">Blood Group is Required</p>}
+            </div>
+            <div className="form-control w-64 max-w-xs">
+              <label className="label">
+                <span className="label-text">Religion:</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Religion"
+                className="input input-bordered w-full max-w-xs"
+                {...register("religion", { required: true })}
+              />
+              {errors?.religion && <p className="text-red-500">Relegion is Required</p>}
             </div>
             <div className="form-control w-64 max-w-xs">
               <label className="label">
@@ -99,8 +134,9 @@ const AddPersonalDetails = () => {
                 type="text"
                 placeholder="Your Whatsapp No"
                 className="input input-bordered w-full max-w-xs"
-                {...register("whatsapp", { required: true })}
+                {...register("whatsApp", { required: true })}
               />
+              {errors?.whatsApp && <p className="text-red-500">Whatsapp is Required</p>}
             </div>
             <div className="form-control w-64 max-w-xs">
               <label className="label">
@@ -110,8 +146,9 @@ const AddPersonalDetails = () => {
                 type="text"
                 placeholder="Your Facebook ID"
                 className="input input-bordered w-full max-w-xs"
-                {...register("fbId", { required: true })}
+                {...register("facebook", { required: true })}
               />
+              {errors?.facebook && <p className="text-red-500">Facebook ID is Required</p>}
             </div>
             <div className="form-control w-64 max-w-xs">
               <label className="label">
@@ -121,7 +158,7 @@ const AddPersonalDetails = () => {
                 type="text"
                 placeholder="Your Linkedin ID"
                 className="input input-bordered w-full max-w-xs"
-                {...register("linkedIn", { required: true })}
+                {...register("linkedIn")}
               />
             </div>
             <div className="form-control w-64 max-w-xs">
@@ -137,6 +174,7 @@ const AddPersonalDetails = () => {
                 <option value="unEmployed">Un-Employed</option>
                 <option value="business">Business</option>
               </select>
+              {errors?.employment && <p className="text-red-500">Employment Status is Required</p>}
             </div>
           </div>
         </div>
