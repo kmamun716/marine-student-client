@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import {Outlet } from "react-router-dom";
 import {
   Accordion,
   AccordionHeader,
@@ -35,7 +34,6 @@ const AddDetails = () => {
   };
   return (
     <div>
-      <Outlet />
       <div className="tabs">
         <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
           <AccordionHeader onClick={() => handleOpen(1)}>
