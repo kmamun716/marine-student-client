@@ -1,6 +1,6 @@
 import React from 'react';
 
-const OthersDetails = ({details}) => {
+const OthersDetails = ({ details, handleEdit }) => {
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
             <div className="card-body">
@@ -11,7 +11,7 @@ const OthersDetails = ({details}) => {
                 <p>Email : {details?.email}</p>
                 <p>Facebook ID : {details?.facebook ? details?.facebook : 'Not Given'}</p>
                 <p>Whatsapp : {details?.whatsApp ? details?.whatsApp : 'Not Given'}</p>
-                <button className='btn btn-info'>Edit</button>
+                <label htmlFor="edit-details-modal"  className='btn btn-info' onClick={()=>handleEdit(details)}>Edit</label>
             </div>
         </div>
     );
