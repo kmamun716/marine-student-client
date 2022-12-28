@@ -1,0 +1,26 @@
+import React from 'react';
+
+const PersonalDetails = ({ details }) => {
+    return (
+        <div className="card w-96 bg-base-100 shadow-xl">
+            <div className="card-body">
+                <h2 className="card-title">Personal Information:</h2>
+                <p>Father : {details?.father}</p>
+                <p>Mother : {details?.mother}</p>
+                <p>Blood Group : {details?.bloodGroup}</p>
+                <p>Date of Birth : {details?.mother}</p>
+                <p>Present Address : {details?.presentAddress}</p>
+                <p>Permanent Address : {details?.permanentAddress}</p>
+                <p>National ID No : {details?.nId}</p>
+                <p>Religion : {details?.religion}</p>
+                <p>Whatsapp : {details?.whatsApp}</p>
+                <p>Facebook : {details?.facebook}</p>
+                <p>Linkedin : {details?.linkedIn}</p>
+                <p>Status : {details?.employmentStatus}</p>
+                <button className='btn btn-info'>Edit</button>
+            </div>
+        </div>
+    );
+};
+
+export default PersonalDetails;

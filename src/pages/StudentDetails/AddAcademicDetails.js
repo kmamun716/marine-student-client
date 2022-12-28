@@ -1,12 +1,31 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const AddAcademicDetails = () => {
+    const navigate = useNavigate();
+    const token = localStorage.getItem('authToken');
     const [select, setSelect] = useState('student');
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => {
-        console.log(data)
-    }
+    const onSubmit = async data => {
+        try {
+            const res = await axios.post('http://localhost:4000/api/v1/external/academic/add', data, {
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            });
+            if (res?.status === 201) {
+                navigate('/dashboard')
+                toast.success('Academic Details Created Successfully');
+            }
+        } catch (err) {
+            if (err?.response?.status === 400) {
+                toast.error(err?.response?.data?.message)
+            }
+        }
+    };
     return (
         <div>
             <h2 className="text-center mb-2 underline">Add Academic Details</h2>
@@ -43,7 +62,7 @@ const AddAcademicDetails = () => {
                             </label>
                             <select
                                 {...register("status", { required: true })}
-                                onChange={e=>setSelect(e.target.value)}
+                                onChange={e => setSelect(e.target.value)}
                                 className="select select-bordered w-full max-w-xs"
                             >
                                 <option disabled>Select One</option>

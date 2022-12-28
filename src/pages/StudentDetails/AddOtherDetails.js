@@ -1,10 +1,29 @@
+import axios from 'axios';
 import React from 'react';
 import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const AddOtherDetails = () => {
+    const navigate = useNavigate();
+    const token = localStorage.getItem('authToken');
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => {
-        console.log(data)
+    const onSubmit = async data => {
+        try {
+            const res = await axios.post('http://localhost:4000/api/v1/external/others/add', data, {
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            });
+            if (res?.status === 201) {
+                toast.success('Emmergency Contact Details Created Successfully');
+                navigate('/dashboard')
+            }
+        } catch (err) {
+            if (err?.response?.status === 400) {
+                toast.error(err?.response?.data?.message)
+            }
+        }
     }
     return (
         <div>

@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const AddPersonalDetails = () => {
+  const navigate = useNavigate();
   const token = localStorage.getItem('authToken');
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = async (data) => {
@@ -14,7 +16,8 @@ const AddPersonalDetails = () => {
         }
       });
       if(res.status === 201){
-        toast.success('Personal Details Added Successfully')
+        navigate('/dashboard')
+        toast.success('Personal Details Added Successfully');
       }
     } catch (err) {
       if (err?.response?.data?.message) {
@@ -166,7 +169,7 @@ const AddPersonalDetails = () => {
                 <span className="label-text">Employment Status:</span>
               </label>
               <select
-                {...register("employment", { required: true })}
+                {...register("employmentStatus", { required: true })}
                 className="select select-bordered w-full max-w-xs"
               >
                 <option disabled>Select One</option>
@@ -174,7 +177,7 @@ const AddPersonalDetails = () => {
                 <option value="unEmployed">Un-Employed</option>
                 <option value="business">Business</option>
               </select>
-              {errors?.employment && <p className="text-red-500">Employment Status is Required</p>}
+              {errors?.employmentStatus && <p className="text-red-500">Employment Status is Required</p>}
             </div>
           </div>
         </div>
