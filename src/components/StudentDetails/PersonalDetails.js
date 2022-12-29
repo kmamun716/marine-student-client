@@ -22,7 +22,7 @@ const PersonalDetails = ({ details }) => {
                 <label htmlFor="edit-personal-details-modal"  className='btn btn-info' onClick={()=>setModalOpen(true)}>Edit</label>
             </div>
             {
-                modalOpen && <EditPersonalDetailsModal data={details} />
+                modalOpen && <EditPersonalDetailsModal setModalOpen={setModalOpen} data={details} />
             }
         </div>
     );
