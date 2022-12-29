@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import EditAcademicDetailsModal from '../EditModal/EditAcademicDetailsModal';
 
 const AcademicDetails = ({ details }) => {
-    const handleEdit = ()=>{
-
-    }
+    const [modalOpen, setModalOpen] = useState(false);
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
             <div className="card-body">
@@ -12,7 +11,10 @@ const AcademicDetails = ({ details }) => {
                 <p>Intake : {details?.intake}</p>
                 <p>Status : {details?.status}</p>
                 {details?.status === "passed" && <p>Passing Year : {details?.passingYear}</p>}
-                <label htmlFor="edit-details-modal"  className='btn btn-info' onClick={handleEdit}>Edit</label>
+                <label htmlFor="edit-academic-details-modal"  className='btn btn-info' onClick={()=>setModalOpen(true)}>Edit</label>
+                {
+                    modalOpen && <EditAcademicDetailsModal data={details} />
+                }
             </div>
         </div>
     );

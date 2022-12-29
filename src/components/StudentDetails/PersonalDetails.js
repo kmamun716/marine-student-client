@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import EditPersonalDetailsModal from '../EditModal/EditPersonalDetailsModal';
 
-const PersonalDetails = ({ details, handleEdit }) => {
+const PersonalDetails = ({ details }) => {
+    const [modalOpen, setModalOpen] = useState(false);
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
             <div className="card-body">
@@ -17,8 +19,11 @@ const PersonalDetails = ({ details, handleEdit }) => {
                 <p>Facebook : {details?.facebook}</p>
                 <p>Linkedin : {details?.linkedIn}</p>
                 <p>Status : {details?.employmentStatus}</p>
-                <label htmlFor="edit-personal-details-modal"  className='btn btn-info' onClick={()=>handleEdit(details)}>Edit</label>
+                <label htmlFor="edit-personal-details-modal"  className='btn btn-info' onClick={()=>setModalOpen(true)}>Edit</label>
             </div>
+            {
+                modalOpen && <EditPersonalDetailsModal data={details} />
+            }
         </div>
     );
 };

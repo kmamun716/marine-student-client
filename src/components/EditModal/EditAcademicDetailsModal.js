@@ -1,6 +1,7 @@
 import React from 'react';
 
-const EditAcademicDetailsModal = () => {
+const EditAcademicDetailsModal = ({data}) => {
+        console.log(data)
     return (
         <div>
             {/* Put this part before </body> tag */}
