@@ -63,7 +63,6 @@ const EditPersonalDetailsModal = ({ data, setModalOpen }) => {
               </label>
               <input
                 type="text"
-                placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 defaultValue={data?.father}
                 onChange={handleChange}
@@ -76,7 +75,6 @@ const EditPersonalDetailsModal = ({ data, setModalOpen }) => {
               </label>
               <input
                 type="text"
-                placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 defaultValue={data?.mother}
                 onChange={handleChange}
@@ -89,7 +87,6 @@ const EditPersonalDetailsModal = ({ data, setModalOpen }) => {
               </label>
               <input
                 type="text"
-                placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 defaultValue={data?.presentAddress}
                 onChange={handleChange}
@@ -103,7 +100,6 @@ const EditPersonalDetailsModal = ({ data, setModalOpen }) => {
               </label>
               <input
                 type="text"
-                placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 defaultValue={data?.nId}
                 onChange={handleChange}
@@ -116,7 +112,6 @@ const EditPersonalDetailsModal = ({ data, setModalOpen }) => {
               </label>
               <input
                 type="text"
-                placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 defaultValue={data?.facebook}
                 onChange={handleChange}
@@ -130,7 +125,6 @@ const EditPersonalDetailsModal = ({ data, setModalOpen }) => {
               </label>
               <input
                 type="text"
-                placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 defaultValue={data?.whatsApp}
                 onChange={handleChange}
@@ -143,7 +137,6 @@ const EditPersonalDetailsModal = ({ data, setModalOpen }) => {
               </label>
               <input
                 type="text"
-                placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 defaultValue={data?.linkedIn}
                 onChange={handleChange}

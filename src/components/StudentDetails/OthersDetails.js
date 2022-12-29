@@ -16,7 +16,7 @@ const OthersDetails = ({ details }) => {
                 <label htmlFor="edit-others-details-modal"  className='btn btn-info' onClick={()=>setModalOpen(true)}>Edit</label>
             </div>
             {
-                modalOpen && <EditOthersDetailsModal data={details} />
+                modalOpen && <EditOthersDetailsModal setModalOpen={setModalOpen} data={details} />
             }
         </div>
     );

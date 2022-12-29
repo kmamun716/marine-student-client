@@ -13,7 +13,7 @@ const AcademicDetails = ({ details }) => {
                 {details?.status === "passed" && <p>Passing Year : {details?.passingYear}</p>}
                 <label htmlFor="edit-academic-details-modal"  className='btn btn-info' onClick={()=>setModalOpen(true)}>Edit</label>
                 {
-                    modalOpen && <EditAcademicDetailsModal data={details} />
+                    modalOpen && <EditAcademicDetailsModal setModalOpen={setModalOpen} data={details} />
                 }
             </div>
         </div>
