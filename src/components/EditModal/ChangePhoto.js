@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 
-const ChangePhoto = ({details}) => {
+const ChangePhoto = ({details, refetch}) => {
     const token = localStorage.getItem('authToken');
     const [image, setImage] = useState(details?.personal_info?.photo);
     const handleSubmit=async e=>{

@@ -17,7 +17,7 @@ const Profile = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [photoModal, setPhotoModal] = useState(false);
   const [student, isLoading] = useGetSingleUser(token);
-  const [studentDetails, detailsLoading] = useGetUserById(student?.id);
+  const [studentDetails, detailsLoading, refetch] = useGetUserById(student?.id);
   if (isLoading || detailsLoading) {
     return <Loading />;
   }
@@ -41,7 +41,7 @@ const Profile = () => {
           className="btn btn-info btn-xs"
           onClick={() => setPhotoModal(true)}
         >
-          Edit
+          Edit photo
         </label>
       </div>
       <div>
@@ -59,7 +59,7 @@ const Profile = () => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         {studentDetails?.personal_info ? (
-          <PersonalDetails details={studentDetails?.personal_info} />
+          <PersonalDetails refetch={refetch} details={studentDetails?.personal_info} />
         ) : (
           <Link
             className="link link-hover text-primary"
@@ -69,7 +69,7 @@ const Profile = () => {
           </Link>
         )}
         {studentDetails?.employment_info ? (
-          <EmploymentDetails details={studentDetails?.employment_info} />
+          <EmploymentDetails refetch={refetch} details={studentDetails?.employment_info} />
         ) : (
           <Link
             className="link link-hover text-primary"
@@ -79,7 +79,7 @@ const Profile = () => {
           </Link>
         )}
         {studentDetails?.academic_info ? (
-          <AcademicDetails details={studentDetails?.academic_info} />
+          <AcademicDetails refetch={refetch} details={studentDetails?.academic_info} />
         ) : (
           <Link
             className="link link-hover text-primary"
@@ -89,7 +89,7 @@ const Profile = () => {
           </Link>
         )}
         {studentDetails?.others_info ? (
-          <OthersDetails details={studentDetails?.others_info} />
+          <OthersDetails refetch={refetch} details={studentDetails?.others_info} />
         ) : (
           <Link
             className="link link-hover text-primary"
@@ -103,9 +103,10 @@ const Profile = () => {
         <BasicEdit
           details={studentDetails}
           setModalOpen={setModalOpen}
+          refetch={refetch}
         />
       )}
-      {photoModal && <ChangePhoto details={studentDetails}/>}
+      {photoModal && <ChangePhoto refetch={refetch} details={studentDetails}/>}
     </div>
   );
 };

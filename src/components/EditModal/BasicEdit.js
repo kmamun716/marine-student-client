@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const BasicEdit = ({ details, setModalOpen }) => {
+const BasicEdit = ({ details, setModalOpen, refetch }) => {
   const token = localStorage.getItem("authToken");
   const [editData, setEditData] = useState({
     name: details?.name,
@@ -28,6 +28,7 @@ const BasicEdit = ({ details, setModalOpen }) => {
         }
       );
       if (result?.status === 201) {
+        refetch(true)
         toast.success(result?.data?.message);
       }
     } catch (err) {

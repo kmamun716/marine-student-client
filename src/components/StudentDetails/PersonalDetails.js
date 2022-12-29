@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import EditPersonalDetailsModal from '../EditModal/EditPersonalDetailsModal';
 
-const PersonalDetails = ({ details }) => {
+const PersonalDetails = ({ details , refetch }) => {
     const [modalOpen, setModalOpen] = useState(false);
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
@@ -22,7 +22,7 @@ const PersonalDetails = ({ details }) => {
                 <label htmlFor="edit-personal-details-modal"  className='btn btn-info' onClick={()=>setModalOpen(true)}>Edit</label>
             </div>
             {
-                modalOpen && <EditPersonalDetailsModal setModalOpen={setModalOpen} data={details} />
+                modalOpen && <EditPersonalDetailsModal refetch={refetch} setModalOpen={setModalOpen} data={details} />
             }
         </div>
     );

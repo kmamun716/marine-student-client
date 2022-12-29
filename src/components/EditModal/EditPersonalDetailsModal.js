@@ -1,8 +1,8 @@
-import React, { useState } from "react";
 import axios from "axios";
-import {toast} from 'react-toastify';
+import React, { useState } from "react";
+import { toast } from 'react-toastify';
 
-const EditPersonalDetailsModal = ({ data, setModalOpen }) => {
+const EditPersonalDetailsModal = ({ data, setModalOpen, refetch }) => {
   const token = localStorage.getItem("authToken");
   const [editData, setEditData] = useState({
     father: data?.father,
@@ -32,6 +32,7 @@ const EditPersonalDetailsModal = ({ data, setModalOpen }) => {
         }
       );
       if(result?.status === 201){
+        refetch(true)
         toast.success(result?.data?.message)
       }
     } catch (err) {
