@@ -29,7 +29,7 @@ const AllStudent = () => {
         if (select === "admin") {
             setRecord(admin)
         }
-    }, [select, data])
+    }, [select, data, admin, pending])
 
     if (isLoading) {
         return <Loading />
@@ -60,7 +60,7 @@ const AllStudent = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {currentRecords?.map((student, index) => <tr className={index % 2 !==0 && 'active'} key={student?.id}>
+                        {currentRecords?.map((student, index) => <tr className={index % 2 !==0 ? 'active' : ''} key={student?.id}>
                             <th>{index + 1}</th>
                             <td className='link link-hover text-info'><Link to={`/student/${student?.name.replace(/\s+/g, "-")}`} state={student?.id}>{student?.name}</Link></td>
                             <td>{student?.email}</td>

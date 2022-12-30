@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { default as female, default as male } from "../../asstes/images/male.png";
+import Paginate from '../../components/shared/Paginate';
 
 const SearchedStudent = ({ students }) => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const indexOfLastRecord = currentPage * 5;
+    const indexOfFirstRecord = indexOfLastRecord - 5;
+    const currentRecords = students?.slice(indexOfFirstRecord, indexOfLastRecord);
+    const nPages = Math.ceil(students?.length / 5);
     console.log(students)
     return (
         <div>
@@ -12,18 +19,27 @@ const SearchedStudent = ({ students }) => {
                             <th className='text-center'>Name</th>
                             <th>Course</th>
                             <th>Intake</th>
-                            <th>Educational <br/> Status</th>
+                            <th><p className='break-words'>Educational Status</p></th>
                             <th>Details</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            students?.map(student => <tr key={student?.id}>
+                            currentRecords?.map(student => <tr key={student?.id}>
                                 <td>
                                     <div className="flex items-center space-x-3">
                                         <div className="avatar">
                                             <div className="mask mask-squircle w-12 h-12">
-                                                <img src={student?.personal_info.photo} alt={student?.name} />
+                                                <img
+                                                    src={
+                                                        student?.personal_info?.photo
+                                                            ? student?.personal_info?.photo
+                                                            : student?.gender === "male"
+                                                                ? male
+                                                                : female
+                                                    }
+                                                    alt={student?.name}
+                                                />
                                             </div>
                                         </div>
                                         <div>
@@ -40,9 +56,17 @@ const SearchedStudent = ({ students }) => {
                             </tr>)
                         }
                     </tbody>
-
                 </table>
             </div>
+            <div className="flex justify-center">
+                    {
+                        nPages > 1 && <Paginate
+                            nPages={nPages + 1}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                        />
+                    }
+                </div>
         </div>
     );
 };
