@@ -18,7 +18,6 @@ import AddDetails from './pages/StudentDetails/AddDetails';
 import AddEmploymentDetails from './pages/StudentDetails/AddEmploymentDetails';
 import AddOtherDetails from './pages/StudentDetails/AddOtherDetails';
 import AddPersonalDetails from './pages/StudentDetails/AddPersonalDetails';
-import StudentDetails from './pages/StudentDetails/StudentDetails';
 
 function App() {
   return (
@@ -41,7 +40,6 @@ function App() {
           <Route path='/student/details/add/academic' element={<AddAcademicDetails/>} />
           <Route path='/student/details/add/others' element={<AddOtherDetails/>} />
         </Route>
-        <Route to='/student/details/:id' element={<StudentDetails/>}/>
         <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer/>

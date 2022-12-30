@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { default as female, default as male } from "../../asstes/images/male.png";
 import Paginate from '../../components/shared/Paginate';
 
 const SearchedStudent = ({ students }) => {
@@ -30,13 +29,7 @@ const SearchedStudent = ({ students }) => {
                                         <div className="avatar">
                                             <div className="mask mask-squircle w-12 h-12">
                                                 <img
-                                                    src={
-                                                        student?.personal_info?.photo
-                                                            ? student?.personal_info?.photo
-                                                            : student?.gender === "male"
-                                                                ? male
-                                                                : female
-                                                    }
+                                                    src={student?.personal_info?.photo}
                                                     alt={student?.name}
                                                 />
                                             </div>

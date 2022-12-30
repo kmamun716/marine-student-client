@@ -30,8 +30,8 @@ const Profile = () => {
               studentDetails?.personal_info?.photo
                 ? studentDetails?.personal_info?.photo
                 : studentDetails?.gender === "male"
-                ? male
-                : female
+                  ? male
+                  : female
             }
             alt={student?.name}
           />
@@ -48,7 +48,7 @@ const Profile = () => {
         <h3>Name: {studentDetails?.name}</h3>
         <p>Email: {studentDetails?.email}</p>
         <p>Mobile: {studentDetails?.mobile}</p>
-        <p>Status: <span className={`${studentDetails?.status === "pending"? 'text-red-500 text-xl' : 'text-green-500 text-xl'}`}>{studentDetails?.status}</span> <br />{studentDetails?.status === "pending" &&<span className="text-2xl text-red-500"> Please Contact With Admin to Approve your Profile</span>}</p> 
+        <p>Status: <span className={`${studentDetails?.status === "pending" ? 'text-red-500 text-xl' : 'text-green-500 text-xl'}`}>{studentDetails?.status}</span> <br />{studentDetails?.status === "pending" && <span className="text-2xl text-red-500"> Please Contact With Admin to Approve your Profile</span>}</p>
         <label
           htmlFor="edit-basic-modal"
           className="btn btn-info"
@@ -106,7 +106,7 @@ const Profile = () => {
           refetch={refetch}
         />
       )}
-      {photoModal && <ChangePhoto refetch={refetch} details={studentDetails}/>}
+      {photoModal && <ChangePhoto refetch={refetch} details={studentDetails} />}
     </div>
   );
 };
