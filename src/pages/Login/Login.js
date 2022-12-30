@@ -29,7 +29,7 @@ const Login = () => {
     };
     useEffect(() => {
         if (token) {
-            navigate(from, { replace: true });
+            navigate('/dashboard', { replace: true });
         }
     }, [from, navigate, token])
     return (

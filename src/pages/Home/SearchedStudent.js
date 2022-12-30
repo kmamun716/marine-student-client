@@ -9,7 +9,6 @@ const SearchedStudent = ({ students }) => {
     const indexOfFirstRecord = indexOfLastRecord - 5;
     const currentRecords = students?.slice(indexOfFirstRecord, indexOfLastRecord);
     const nPages = Math.ceil(students?.length / 5);
-    console.log(students)
     return (
         <div>
             <div className="overflow-x-auto w-full">
@@ -50,8 +49,8 @@ const SearchedStudent = ({ students }) => {
                                 <td>
                                     {student?.academic_info?.course}
                                 </td>
-                                <td>{student?.academic_info.intake}</td>
-                                <td>{student?.academic_info.status}</td>
+                                <td>{student?.academic_info?.intake}</td>
+                                <td>{student?.academic_info?.status}</td>
                                 <th><Link className='btn btn-xs' to={`/student/${student?.name.replace(/\s+/g, "-")}`} state={student?.id}>More Info</Link></th>
                             </tr>)
                         }
