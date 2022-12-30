@@ -1,0 +1,13 @@
+.home-container {
+  height: 100vh;
+  background: #fff;
+}
+.home-container .slider {
+  display: table;
+  height: 100%;
+}
+.home-container .slider .search-group {
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
