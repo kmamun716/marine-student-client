@@ -5,9 +5,9 @@ import useGetSingleUser from '../../hooks/useGetSingleUser';
 
 const Dashboard = () => {
     const token = localStorage.getItem('authToken');
-    const [student, isLoading] = useGetSingleUser(token)
-    if(isLoading){
-        return <Loading/>
+    const [student, isLoading] = useGetSingleUser(token);
+    if (isLoading) {
+        return <Loading />
     }
     return (
         <div>
@@ -25,11 +25,9 @@ const Dashboard = () => {
                         {
                             student?.role === "admin" && <>
                                 <li><Link to='/dashboard/all-student'>Student List</Link></li>
-                                <li><Link to='/dashboard/pending'>Pending Student</Link></li>
                             </>
                         }
                     </ul>
-
                 </div>
             </div>
         </div>

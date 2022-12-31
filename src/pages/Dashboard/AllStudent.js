@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Loading from '../../components/shared/Loading';
 import Paginate from '../../components/shared/Paginate';
 
@@ -8,10 +10,32 @@ const AllStudent = () => {
     const [select, setSelct] = useState('all');
     const [currentPage, setCurrentPage] = useState(1);
     const [record, setRecord] = useState([]);
-    const { data, isLoading } = useQuery(['students'], async () => {
+    const { data, isLoading, refetch } = useQuery(['students'], async () => {
         const res = await fetch('http://localhost:4000/api/v1/student/all');
         return await res.json();
     })
+    const changeRole = async (role, id) => {
+        const token = localStorage.getItem('authToken')
+        const makeRole = { role: role };
+        const result = await axios.put(`http://localhost:4000/api/v1/auth/${id}`, makeRole, {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        });
+        refetch()
+        toast.success(result?.data?.message)
+    };
+    const changeStatus = async (status, id) => {
+        const token = localStorage.getItem('authToken')
+        const changeStatus = { status: status };
+        const result = await axios.put(`http://localhost:4000/api/v1/auth/${id}`, changeStatus, {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        });
+        refetch()
+        toast.success(result?.data?.message)
+    };
     const indexOfLastRecord = currentPage * 20;
     const indexOfFirstRecord = indexOfLastRecord - 20;
     const currentRecords = record?.slice(indexOfFirstRecord, indexOfLastRecord);
@@ -56,17 +80,27 @@ const AllStudent = () => {
                             <th>Email</th>
                             <th>Role</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th>Change Role</th>
+                            <th>Change status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {currentRecords?.map((student, index) => <tr className={index % 2 !==0 ? 'active' : ''} key={student?.id}>
+                        {currentRecords?.map((student, index) => <tr className={index % 2 !== 0 ? 'active' : ''} key={student?.id}>
                             <th>{index + 1}</th>
                             <td className='link link-hover text-info'><Link to={`/student/${student?.name.replace(/\s+/g, "-")}`} state={student?.id}>{student?.name}</Link></td>
                             <td>{student?.email}</td>
                             <td>{student?.role}</td>
                             <td>{student?.status}</td>
-                            <td><button className='btn btn-xs'>Action</button></td>
+                            <td>
+                                {
+                                    student?.role === "user" ? <button onClick={() => changeRole('admin', student?.id)} className="btn btn-info btn-xs">Make Admin</button> : <button onClick={() => changeRole('user', student?.id)} className="btn btn-accent btn-xs">Make User</button>
+                                }
+                            </td>
+                            <td>
+                                {
+                                    student?.status === "pending" ? <button onClick={() => changeStatus('active', student?.id)} className="btn btn-primary btn-xs">Make Active</button>:<button onClick={() => changeStatus('pending', student?.id)} className="btn btn-warning btn-xs">Make Pending</button>
+                                }
+                            </td>
                         </tr>)}
                     </tbody>
                 </table>
@@ -80,6 +114,7 @@ const AllStudent = () => {
                     }
                 </div>
             </div>
+
         </div>
     );
 };

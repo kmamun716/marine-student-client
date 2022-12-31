@@ -6,7 +6,6 @@ import Footer from './components/shared/Footer';
 import Header from './components/shared/Header';
 import AllStudent from './pages/Dashboard/AllStudent';
 import Dashboard from './pages/Dashboard/Dashboard';
-import Pending from './pages/Dashboard/Pending';
 import Profile from './pages/Dashboard/Profile';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
@@ -31,7 +30,6 @@ function App() {
         <Route path='/dashboard' element={<RequireAuth><Dashboard /></RequireAuth>} >
           <Route index element={<Profile/>} />
           <Route path='/dashboard/all-student' element={<RequireAdmin><AllStudent/></RequireAdmin>} />
-          <Route path='/dashboard/pending' element={<RequireAdmin><Pending/></RequireAdmin>} />
         </Route>
         {/* update student details */}
         <Route path='/student/details/add' element={<RequireAuth><AddDetails/></RequireAuth>}>
