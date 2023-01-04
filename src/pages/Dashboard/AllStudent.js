@@ -14,21 +14,9 @@ const AllStudent = () => {
         const res = await fetch('http://localhost:4000/api/v1/student/all');
         return await res.json();
     })
-    const changeRole = async (role, id) => {
+    const changeQuery = async (filter, id) => {
         const token = localStorage.getItem('authToken')
-        const makeRole = { role: role };
-        const result = await axios.put(`http://localhost:4000/api/v1/auth/${id}`, makeRole, {
-            headers: {
-                authorization: `Bearer ${token}`
-            }
-        });
-        refetch()
-        toast.success(result?.data?.message)
-    };
-    const changeStatus = async (status, id) => {
-        const token = localStorage.getItem('authToken')
-        const changeStatus = { status: status };
-        const result = await axios.put(`http://localhost:4000/api/v1/auth/${id}`, changeStatus, {
+        const result = await axios.put(`http://localhost:4000/api/v1/auth/${id}`, filter, {
             headers: {
                 authorization: `Bearer ${token}`
             }
@@ -93,12 +81,12 @@ const AllStudent = () => {
                             <td>{student?.status}</td>
                             <td>
                                 {
-                                    student?.role === "user" ? <button onClick={() => changeRole('admin', student?.id)} className="btn btn-info btn-xs">Make Admin</button> : <button onClick={() => changeRole('user', student?.id)} className="btn btn-accent btn-xs">Make User</button>
+                                    student?.role === "user" ? <button onClick={() => changeQuery({ role: 'admin' }, student?.id)} className="btn btn-info btn-xs">Make Admin</button> : <button onClick={() => changeQuery({ role: 'user' }, student?.id)} className="btn btn-accent btn-xs">Make User</button>
                                 }
                             </td>
                             <td>
                                 {
-                                    student?.status === "pending" ? <button onClick={() => changeStatus('active', student?.id)} className="btn btn-primary btn-xs">Make Active</button>:<button onClick={() => changeStatus('pending', student?.id)} className="btn btn-warning btn-xs">Make Pending</button>
+                                    student?.status === "pending" ? <button onClick={() => changeQuery({ status: 'active' }, student?.id)} className="btn btn-primary btn-xs">Make Active</button>:<button onClick={() => changeQuery({ status: 'pending' }, student?.id)} className="btn btn-warning btn-xs">Make Pending</button>
                                 }
                             </td>
                         </tr>)}
