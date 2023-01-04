@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
-const ChangePhoto = ({ details, refetch }) => {
+const ChangePhoto = ({ details, refetch, setPhotoModal }) => {
   const token = localStorage.getItem('authToken');
   const [image, setImage] = useState(details?.personal_info?.photo);
   const handleSubmit = async e => {
@@ -14,7 +15,11 @@ const ChangePhoto = ({ details, refetch }) => {
           authorization: `Bearer ${token}`
         }
       });
-      console.log(result)
+      if(result?.status === 200){
+        toast.success(result?.data?.message);
+        refetch();
+        setPhotoModal(false)
+      }
     } catch (err) {
       console.log(err)
     }
@@ -40,6 +45,7 @@ const ChangePhoto = ({ details, refetch }) => {
                 className="input input-bordered w-full max-w-xs"
                 onChange={(e) => setImage(e.target.files[0])}
                 name="photo"
+                required
               />
             </div>
 

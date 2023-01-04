@@ -106,7 +106,7 @@ const Profile = () => {
           refetch={refetch}
         />
       )}
-      {photoModal && <ChangePhoto refetch={refetch} details={studentDetails} />}
+      {photoModal && <ChangePhoto setPhotoModal={setPhotoModal} refetch={refetch} details={studentDetails} />}
     </div>
   );
 };
