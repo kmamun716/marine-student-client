@@ -23,7 +23,7 @@ const Dashboard = () => {
 
                         <li><Link to='/dashboard'>Profile</Link></li>
                         {
-                            student?.status === 'active' && <li><Link to='/dashboard/search/student'>Search Student</Link></li>
+                            student?.status === 'active' && student?.role !== 'admin' && <li><Link to='/dashboard/search/student'>Search Student</Link></li>
                         }
                         {
                             student?.role === "admin" && <>
