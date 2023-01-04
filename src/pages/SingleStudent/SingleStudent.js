@@ -16,10 +16,11 @@ const SingleStudent = () => {
     }
     return (
         <div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center gap-2">
                 <img
                     src={student?.personal_info?.photo}
                     alt={student?.name}
+                    width='150px'
                 />
                 <div>
                     <h3>Name: {student?.name}</h3>
