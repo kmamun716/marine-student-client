@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import RequireActive from './components/auth/RequireActive';
 import RequireAuth from './components/auth/RequireAuth';
 import RequireAdmin from './components/auth/ReuireAdmin';
 import Footer from './components/shared/Footer';
@@ -7,6 +8,7 @@ import Header from './components/shared/Header';
 import AllStudent from './pages/Dashboard/AllStudent';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Profile from './pages/Dashboard/Profile';
+import SearchStudent from './pages/Dashboard/SearchStudent';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import NotFound from './pages/NotFound/NotFound';
@@ -29,6 +31,7 @@ function App() {
         <Route path='/student/:slug' element={<SingleStudent />} />
         <Route path='/dashboard' element={<RequireAuth><Dashboard /></RequireAuth>} >
           <Route index element={<Profile/>} />
+          <Route path='/dashboard/search/student' element={<RequireActive><SearchStudent/></RequireActive>} />
           <Route path='/dashboard/all-student' element={<RequireAdmin><AllStudent/></RequireAdmin>} />
         </Route>
         {/* update student details */}
