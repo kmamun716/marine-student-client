@@ -1,11 +1,13 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import ForgotPassword from '../../components/EditModal/ForgotPassword';
 import FormInput from '../../components/shared/FormInput';
 
 const Login = () => {
+    const [modalOpen, setModalOpen] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
     let navigate = useNavigate();
     let location = useLocation();
@@ -31,7 +33,7 @@ const Login = () => {
         if (token) {
             navigate('/dashboard', { replace: true });
         }
-    }, [from, navigate, token])
+    }, [from, navigate, token]);
     return (
         <div>
             <h2 className='text-xl text-center underline'>Login Here</h2>
@@ -64,8 +66,14 @@ const Login = () => {
 
                     <input className='btn btn-accent my-2' type="submit" value='Login' />
                 </form>
-                <p>Not Have Any Account? <Link className="link link-neutral" to='/register'>Register Here</Link></p>
+                <div>
+                    <label className='cursor-pointer text-left' htmlFor='forgot-password-modal' onClick={() => setModalOpen(true)}>Forgot Password?</label>
+                    <p>Not Have Any Account? <Link className="link link-neutral" to='/register'>Register Here</Link></p>
+                </div>
             </div>
+            {
+                modalOpen && <ForgotPassword setModalOpen={setModalOpen} />
+            }
         </div>
     );
 };
