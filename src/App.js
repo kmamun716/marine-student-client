@@ -13,6 +13,7 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import NotFound from './pages/NotFound/NotFound';
 import Register from './pages/Register/Register';
+import ResetPassword from './pages/ResetPassword/ResetPassword';
 import SingleStudent from './pages/SingleStudent/SingleStudent';
 import AddAcademicDetails from './pages/StudentDetails/AddAcademicDetails';
 import AddDetails from './pages/StudentDetails/AddDetails';
@@ -41,6 +42,7 @@ function App() {
           <Route path='/student/details/add/academic' element={<AddAcademicDetails/>} />
           <Route path='/student/details/add/others' element={<AddOtherDetails/>} />
         </Route>
+        <Route path='/forgotPasss/:id/reset' element={<ResetPassword/>}/>
         <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer/>

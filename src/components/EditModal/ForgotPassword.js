@@ -4,13 +4,15 @@ import React, { useState } from 'react';
 const ForgotPassword = ({setModalOpen}) => {
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
+    const [message, setMessage] = useState(false);
     const handleSubmit=async (e)=>{
         setError('')
         e.preventDefault();
         try{
             const res = await axios.post(`http://localhost:4000/api/v1/auth/forgotPassword/${email}`);
             if(res.status === 200){
-                setError('')
+                setError('');
+                setMessage(true);
             }
             console.log(res)
         }catch(err){
@@ -26,10 +28,15 @@ const ForgotPassword = ({setModalOpen}) => {
                     <label
                         htmlFor="forgot-password-modal"
                         className="btn btn-sm btn-circle absolute right-2 top-2"
+                        onClick={()=>setMessage(false)}
                     >
                         ✕
                     </label>
-                    <form className='flex flex-col items-center' onSubmit={handleSubmit}>
+                    {
+                        message ? <div>
+                            <p>Reset Link Sent to your Registered Email</p>
+                            <p>Please Check Your Email Inbox or Spam Folder</p>
+                        </div>:<form className='flex flex-col items-center' onSubmit={handleSubmit}>
                         <div className="form-control w-64 max-w-xs">
                             <label className="label">
                                 <span className="label-text">Registerd Email:</span>
@@ -44,9 +51,10 @@ const ForgotPassword = ({setModalOpen}) => {
                         </div>
                         <div>{error && <p className='text-left text-red-500'>{error}</p>}</div>                        
                         <div className="form-control w-64 max-w-xs my-2">
-                            <input type="submit" className="btn btn-secondary" value="Submit" />
+                            <input type="submit" className="btn btn-secondary" value="Send Mail" />
                         </div>
                     </form>
+                    }
                 </div>
             </div>
         </div>
