@@ -7,8 +7,8 @@ const AcademicDetails = ({ details }) => {
                 <h2 className="card-title">Academic Information:</h2>
                 <p>Course : {details?.course}</p>
                 <p>Intake : {details?.intake}</p>
-                <p>Status : {details?.status}</p>
-                {details?.status === "passed" && <p>Passing Year : {details?.passingYear}</p>}
+                <p>Status : {details?.academicStatus}</p>
+                {details?.academicStatus === "passed" && <p>Passing Year : {details?.passingYear}</p>}
             </div>
         </div>
     );

@@ -23,7 +23,7 @@ import AddPersonalDetails from './pages/StudentDetails/AddPersonalDetails';
 
 function App() {
   return (
-    <div className="container">
+    <div className="container bg-gray-200">
       <Header/>
       <Routes>
         <Route path='/' element={<Home />} />

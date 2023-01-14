@@ -14,18 +14,21 @@ const SingleStudent = () => {
     if (isLoading) {
         return <Loading />
     }
+    console.log(student)
     return (
         <div>
-            <div className="flex flex-col items-center gap-2">
-                <img
-                    src={student?.personal_info?.photo}
-                    alt={student?.name}
-                    width='150px'
-                />
-                <div>
-                    <h3>Name: {student?.name}</h3>
-                    <p>Email: {student?.email}</p>
-                    <p>Mobile: {student?.mobile}</p>
+            <div className="flex justify-center gap-2 mb-4">
+                <div className='flex items-center'>
+                    <img
+                        src={student?.personal_info?.photo}
+                        alt={student?.name}
+                        width='150px'
+                    />
+                    <div>
+                        <h3>Name: {student?.name}</h3>
+                        <p>Email: {student?.email}</p>
+                        <p>Mobile: {student?.mobile}</p>
+                    </div>
                 </div>
             </div>
             <div className="flex justify-center">
@@ -37,7 +40,7 @@ const SingleStudent = () => {
                         student?.employment_info ? <EmploymentDetails details={student?.employment_info} /> : <p>Employment Details Not Added</p>
                     }
                     {
-                        student?.academic_info ? <AcademicDetails details={student?.academic_info} /> : <p>Academic Details Not Added</p>
+                        student?.academic_info ? <AcademicDetails details={student} /> : <p>Academic Details Not Added</p>
                     }
                     {
                         student?.others_info ? <OthersDetails details={student?.others_info} /> : <p>Emmmergency Contact Details Not Added</p>

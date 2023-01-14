@@ -5,9 +5,7 @@ import { toast } from "react-toastify";
 const EditAcademicDetailsModal = ({ data, setModalOpen, refetch }) => {
   const token = localStorage.getItem("authToken");
   const [editData, setEditData] = useState({
-    course: data?.course,
-    intake: data?.intake,
-    status: data?.status,
+    academicStatus: data?.academicStatus,
     passingYear: data?.passingYear,
   });
   const handleChange = (e) => {
@@ -20,7 +18,7 @@ const EditAcademicDetailsModal = ({ data, setModalOpen, refetch }) => {
     e.preventDefault();
     try {
       const result = await axios.put(
-        "http://localhost:4000/api/v1/external/academic/edit",
+        "http://localhost:4000/api/v1/student/editBasic",
         editData,
         {
           headers: {
@@ -61,10 +59,10 @@ const EditAcademicDetailsModal = ({ data, setModalOpen, refetch }) => {
               </label>
               <input
                 type="text"
+                placeholder="Course Name"
                 className="input input-bordered w-full max-w-xs"
                 defaultValue={data?.course}
-                onChange={handleChange}
-                name="course"
+                disabled
               />
             </div>
             <div className="form-control w-64 max-w-xs">
@@ -72,11 +70,10 @@ const EditAcademicDetailsModal = ({ data, setModalOpen, refetch }) => {
                 <span className="label-text">Intake:</span>
               </label>
               <input
-                type="text"
+                type="number"
                 className="input input-bordered w-full max-w-xs"
                 defaultValue={data?.intake}
-                onChange={handleChange}
-                name="intake"
+                disabled
               />
             </div>
             <div className="form-control w-64 max-w-xs">
@@ -85,10 +82,11 @@ const EditAcademicDetailsModal = ({ data, setModalOpen, refetch }) => {
               </label>
               <select
                 onChange={handleChange}
-                name="status"
+                name="academicStatus"
                 className="select select-bordered w-64 max-w-xs"
+                defaultValue={editData?.academicStatus}
               >
-                <option disabled defaultValue={data?.status}>
+                <option disabled>
                   Select One
                 </option>
                 <option value="student">Running</option>
@@ -103,7 +101,7 @@ const EditAcademicDetailsModal = ({ data, setModalOpen, refetch }) => {
                 <input
                   type="number"
                   className="input input-bordered w-64 max-w-xs"
-                  defaultValue={data?.passingYear}
+                  defaultValue={editData?.passingYear}
                   onChange={handleChange}
                   name="passingYear"
                 />

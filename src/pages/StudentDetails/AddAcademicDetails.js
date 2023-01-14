@@ -3,15 +3,20 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Loading from '../../components/shared/Loading';
+import useGetSingleUser from '../../hooks/useGetSingleUser';
+import useGetUserById from '../../hooks/useGetUserById';
 
 const AddAcademicDetails = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem('authToken');
     const [select, setSelect] = useState('student');
+    const [student, isLoading] = useGetSingleUser(token);
+    const [studentDetails, detailsLoading, refetch] = useGetUserById(student?.id);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async data => {
         try {
-            const res = await axios.post('http://localhost:4000/api/v1/external/academic/add', data, {
+            const res = await axios.put('http://localhost:4000/api/v1/student/editBasic', data, {
                 headers: {
                     authorization: `Bearer ${token}`
                 }
@@ -26,6 +31,10 @@ const AddAcademicDetails = () => {
             }
         }
     };
+    if(isLoading || detailsLoading){
+        return <Loading/>
+    }
+    console.log(studentDetails)
     return (
         <div>
             <h2 className="text-center mb-2 underline">Add Academic Details</h2>
@@ -36,11 +45,19 @@ const AddAcademicDetails = () => {
                             <label className="label">
                                 <span className="label-text">Course Name:</span>
                             </label>
-                            <input
+                            {/* <input
                                 type="text"
                                 placeholder="Course Name"
                                 className="input input-bordered w-full max-w-xs"
                                 {...register("course", { required: true })}
+                            /> */}
+                            <input
+                                type="text"
+                                placeholder="Course Name"
+                                className="input input-bordered w-full max-w-xs"
+                                onChange={()=>{}}
+                                value={studentDetails?.course}
+                                disabled
                             />
                             {errors?.course && <p className="text-red-500">Course Name is Required</p>}
                         </div>
@@ -52,7 +69,9 @@ const AddAcademicDetails = () => {
                                 type="number"
                                 placeholder="Intake No"
                                 className="input input-bordered w-full max-w-xs"
-                                {...register("intake", { required: true })}
+                                onChange={()=>{}}
+                                value={studentDetails?.intake}
+                                disabled
                             />
                             {errors?.intake && <p className="text-red-500">Intake No is Required</p>}
                         </div>
@@ -61,7 +80,7 @@ const AddAcademicDetails = () => {
                                 <span className="label-text">Select Status:</span>
                             </label>
                             <select
-                                {...register("status", { required: true })}
+                                {...register("academicStatus", { required: true })}
                                 onChange={e => setSelect(e.target.value)}
                                 className="select select-bordered w-full max-w-xs"
                             >

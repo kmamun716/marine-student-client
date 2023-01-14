@@ -2,7 +2,7 @@ import React from 'react';
 
 const OthersDetails = ({ details }) => {
     return (
-        <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card w-96 bg-rose-200 shadow-xl">
             <div className="card-body">
                 <h2 className="card-title">Emmergency Contact:</h2>
                 <p>Name : {details?.name}</p>

@@ -78,8 +78,8 @@ const Profile = () => {
             Add Employment Details
           </Link>
         )}
-        {studentDetails?.academic_info ? (
-          <AcademicDetails refetch={refetch} details={studentDetails?.academic_info} />
+        {studentDetails?.academicStatus ? (
+          <AcademicDetails refetch={refetch} details={studentDetails} />
         ) : (
           <Link
             className="link link-hover text-primary"

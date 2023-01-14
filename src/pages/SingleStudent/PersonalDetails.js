@@ -2,8 +2,8 @@ import React from 'react';
 
 const PersonalDetails = ({details}) => {
     return (
-        <div className="card w-96 bg-base-100 shadow-xl">
-            <div className="card-body">
+        <div className="card w-96 bg-red-200 shadow-xl">
+            <div className=" card-body">
                 <h2 className="card-title">Personal Information:</h2>
                 <p>Father : {details?.father}</p>
                 <p>Mother : {details?.mother}</p>

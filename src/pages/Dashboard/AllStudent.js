@@ -5,11 +5,19 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loading from '../../components/shared/Loading';
 import Paginate from '../../components/shared/Paginate';
+import useGetSingleUser from '../../hooks/useGetSingleUser';
+import RoleChangeConfirmation from './RoleChangeConfirmation';
 
 const AllStudent = () => {
+    const token = localStorage.getItem('authToken');
     const [select, setSelct] = useState('all');
     const [currentPage, setCurrentPage] = useState(1);
     const [record, setRecord] = useState([]);
+    const [currentStudent, isStudentLoading] = useGetSingleUser(token);
+    const [roleModal, setRoleModal] = useState({
+        role: null,
+        id: null
+    });
     const { data, isLoading, refetch } = useQuery(['students'], async () => {
         const res = await fetch('http://localhost:4000/api/v1/student/all');
         return await res.json();
@@ -43,7 +51,7 @@ const AllStudent = () => {
         }
     }, [select, data, admin, pending])
 
-    if (isLoading) {
+    if (isLoading || isStudentLoading) {
         return <Loading />
     }
     return (
@@ -81,12 +89,24 @@ const AllStudent = () => {
                             <td>{student?.status}</td>
                             <td>
                                 {
-                                    student?.role === "user" ? <button onClick={() => changeQuery({ role: 'admin' }, student?.id)} className="btn btn-info btn-xs">Make Admin</button> : <button onClick={() => changeQuery({ role: 'user' }, student?.id)} className="btn btn-accent btn-xs">Make User</button>
+                                    student?.role === "user" ? <label
+                                    htmlFor="role-change-modal"
+                                    className="btn btn-info btn-xs"
+                                    onClick={() => setRoleModal({role: 'admin', id: student?.id})}
+                                  >
+                                    Make Admin
+                                  </label> : student?.id !== currentStudent?.id && <label
+                                    htmlFor="role-change-modal"
+                                    className="btn btn-accent btn-xs"
+                                    onClick={() => setRoleModal({role: 'user', id: student?.id})}
+                                  >
+                                    Make User
+                                  </label>
                                 }
                             </td>
                             <td>
                                 {
-                                    student?.status === "pending" ? <button onClick={() => changeQuery({ status: 'active' }, student?.id)} className="btn btn-primary btn-xs">Make Active</button>:<button onClick={() => changeQuery({ status: 'pending' }, student?.id)} className="btn btn-warning btn-xs">Make Pending</button>
+                                    student?.status === "pending" ? <button onClick={() => changeQuery({ status: 'active' }, student?.id)} className="btn btn-primary btn-xs">Make Active</button> : <button onClick={() => changeQuery({ status: 'pending' }, student?.id)} className="btn btn-warning btn-xs">Make Pending</button>
                                 }
                             </td>
                         </tr>)}
@@ -102,7 +122,7 @@ const AllStudent = () => {
                     }
                 </div>
             </div>
-
+            {roleModal.role && <RoleChangeConfirmation details={roleModal} changeQuery={changeQuery} />}
         </div>
     );
 };

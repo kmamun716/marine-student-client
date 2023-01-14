@@ -10,13 +10,13 @@ const Register = () => {
     const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm();
     const navigate = useNavigate();
     const onSubmit = async data => {
-        const { name, email, password, confirmPassword, mobile, gender } = data;
+        const { name, email, password, confirmPassword, course, intake, mobile, gender } = data;
         if (password !== confirmPassword) {
             setError('notMatched', { type: 'custom', message: 'Password Not Matched' });
         } else {
             clearErrors()
             try {
-                const student = await axios.post('http://localhost:4000/api/v1/auth/register', { name, email, password, mobile, gender });
+                const student = await axios.post('http://localhost:4000/api/v1/auth/register', { name, email, password, course, intake, mobile, gender });
                 if (student?.status === 201) {
                     toast.success(student?.data?.message)
                     navigate('/login')
@@ -81,6 +81,32 @@ const Register = () => {
                         />
                         {errors?.confirmPassword && <p className='text-red-500'>Please Provide Confirm Password</p>}
                         {errors?.notMatched && <p className='text-red-500'>{errors?.notMatched?.message}</p>}
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                            <span className="label-text">Course Name:</span>
+                        </label>
+                        <select {...register("course")} className="select select-bordered">
+                            <option disabled>Select Course</option>
+                            <option value="DEMT">DEMT</option>
+                            <option value="DEST">DEST</option>
+                            <option value="MDEA">MDEA</option>
+                            <option value="SBW">SBW</option>
+                            <option value="SBD">SBW</option>
+                            <option value="SF">SF</option>
+                        </select>
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                            <span className="label-text">Intake:</span>
+                        </label>
+                        <FormInput
+                            type='number'
+                            name='intake'
+                            placeholder='Intake Number'
+                            register={register}
+                        />
+                        {errors?.intake && <p className='text-red-500'>Please Provide Intake Number</p>}
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
