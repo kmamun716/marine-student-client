@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const EditEmploymentDetailsModal = ({ data, setModalOpen, refetch }) => {
+  const [checked, setChecked] = useState(false);
   const token = localStorage.getItem("authToken");
   const [editData, setEditData] = useState({
     companyName: data?.companyName,
@@ -12,6 +13,7 @@ const EditEmploymentDetailsModal = ({ data, setModalOpen, refetch }) => {
     city: data?.city,
     country: data?.country,
     joiningYear: data?.joiningYear,
+    jobEnd: data?.jobEnd
   });
   const handleChange = (e) => {
     setEditData({
@@ -23,7 +25,7 @@ const EditEmploymentDetailsModal = ({ data, setModalOpen, refetch }) => {
     e.preventDefault();
     try {
       const result = await axios.put(
-        "http://localhost:4000/api/v1/external/employment/edit",
+        `http://localhost:4000/api/v1/external/employment/edit/${data?.id}`,
         editData,
         {
           headers: {
@@ -138,7 +140,7 @@ const EditEmploymentDetailsModal = ({ data, setModalOpen, refetch }) => {
                 <span className="label-text">Joining Year:</span>
               </label>
               <input
-                type="text"
+                type="number"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 defaultValue={data?.joiningYear}
@@ -146,7 +148,24 @@ const EditEmploymentDetailsModal = ({ data, setModalOpen, refetch }) => {
                 name="joiningYear"
               />
             </div>
-
+            <div className="flex gap-2 mt-2">
+              <input type="checkbox" onClick={() => setChecked(!checked)} className="checkbox checkbox-success" />
+              <p>Currently Work Here</p>
+            </div>
+            <div className="form-control w-64 max-w-xs">
+              <label className="label">
+                <span className="label-text">Job End Year:</span>
+              </label>
+              <input
+                type="number"
+                placeholder="Type here"
+                className="input input-bordered w-full max-w-xs"
+                defaultValue={data?.jobEnd}
+                onChange={handleChange}
+                disabled={checked}
+                name="jobEnd"
+              />
+            </div>
             <div className="form-control w-64 max-w-xs my-2">
               <input type="submit" className="btn btn-accent" value="Submit" />
             </div>

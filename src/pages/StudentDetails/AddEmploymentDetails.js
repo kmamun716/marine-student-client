@@ -1,10 +1,11 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const AddEmploymentDetails = () => {
+    const [checked, setChecked] = useState(false);
     const navigate = useNavigate();
     const token = localStorage.getItem('authToken');
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -114,6 +115,22 @@ const AddEmploymentDetails = () => {
                                 {...register("joiningYear", { required: true })}
                             />
                             {errors?.joiningYear && <p className="text-red-500">Year Of Joining is Required</p>}
+                        </div>
+                        <div className="flex gap-2 mt-2">
+                            <input type="checkbox" onClick={() => setChecked(!checked)} className="checkbox checkbox-success" />
+                            <p>Currently Work Here</p>
+                        </div>
+                        <div className="form-control w-64 max-w-xs">
+                            <label className="label">
+                                <span className="label-text">Job End Year:</span>
+                            </label>
+                            <input
+                                type="number"
+                                placeholder="Job End Year"
+                                className="input input-bordered w-full max-w-xs"
+                                disabled={checked}
+                                {...register("jobEnd")}
+                            />
                         </div>
                     </div>
                 </div>
