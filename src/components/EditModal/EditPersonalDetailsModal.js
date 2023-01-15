@@ -8,6 +8,7 @@ const EditPersonalDetailsModal = ({ data, setModalOpen, refetch }) => {
     father: data?.father,
     mother: data?.mother,
     presentAddress: data?.presentAddress,
+    permanentAddress: data?.permanentAddress,
     nId: data?.nId,
     facebook: data?.facebook,
     whatsApp: data?.whatsApp,
@@ -94,7 +95,19 @@ const EditPersonalDetailsModal = ({ data, setModalOpen, refetch }) => {
                 name="presentAddress"
               />
             </div>
-
+            
+            <div className="form-control w-64 max-w-xs">
+              <label className="label">
+                <span className="label-text">Permanent Address:</span>
+              </label>
+              <input
+                type="text"
+                className="input input-bordered w-full max-w-xs"
+                defaultValue={data?.permanentAddress}
+                onChange={handleChange}
+                name="permanentAddress"
+              />
+            </div>
             <div className="form-control w-64 max-w-xs">
               <label className="label">
                 <span className="label-text">National ID:</span>

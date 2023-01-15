@@ -45,9 +45,6 @@ const SingleStudent = () => {
                     {
                         student?.others_info ? <OthersDetails details={student?.others_info} /> : <p>Emmmergency Contact Details Not Added</p>
                     }
-
-
-
                 </div>
             </div>
         </div>

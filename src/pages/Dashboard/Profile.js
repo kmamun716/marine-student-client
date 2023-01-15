@@ -41,10 +41,10 @@ const Profile = () => {
           className="btn btn-info btn-xs"
           onClick={() => setPhotoModal(true)}
         >
-          Edit photo
+          Change photo
         </label>
       </div>
-      <div>
+      <div className="mb-2">
         <h3>Name: {studentDetails?.name}</h3>
         <p>Email: {studentDetails?.email}</p>
         <p>Mobile: {studentDetails?.mobile}</p>
@@ -57,47 +57,55 @@ const Profile = () => {
           Edit
         </label>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-        {studentDetails?.personal_info ? (
-          <PersonalDetails refetch={refetch} details={studentDetails?.personal_info} />
-        ) : (
-          <Link
-            className="link link-hover text-primary"
-            to="/student/details/add"
-          >
-            Add Personal Details
-          </Link>
-        )}
-        {studentDetails?.employment_info ? (
-          <EmploymentDetails refetch={refetch} details={studentDetails?.employment_info} />
-        ) : (
-          <Link
-            className="link link-hover text-primary"
-            to="/student/details/add/employment"
-          >
-            Add Employment Details
-          </Link>
-        )}
-        {studentDetails?.academicStatus ? (
-          <AcademicDetails refetch={refetch} details={studentDetails} />
-        ) : (
-          <Link
-            className="link link-hover text-primary"
-            to="/student/details/add/academic"
-          >
-            Add Academic Details
-          </Link>
-        )}
-        {studentDetails?.others_info ? (
-          <OthersDetails refetch={refetch} details={studentDetails?.others_info} />
-        ) : (
-          <Link
-            className="link link-hover text-primary"
-            to="/student/details/add/others"
-          >
-            Add Others Details
-          </Link>
-        )}
+      <div className="flex flex-col gap-2">
+        <div>
+          {studentDetails?.employment_info ? (
+            <EmploymentDetails refetch={refetch} details={studentDetails?.employment_info} />
+          ) : (
+            <Link
+              className="link link-hover text-primary"
+              to="/student/details/add/employment"
+            >
+              Add Employment Details
+            </Link>
+          )}
+        </div>
+        <div className="flex flex-col lg:flex-row gap-2">
+          <div>
+            {studentDetails?.personal_info ? (
+              <PersonalDetails refetch={refetch} details={studentDetails?.personal_info} />
+            ) : (
+              <Link
+                className="link link-hover text-primary"
+                to="/student/details/add"
+              >
+                Add Personal Details
+              </Link>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            {studentDetails?.academicStatus ? (
+              <AcademicDetails refetch={refetch} details={studentDetails} />
+            ) : (
+              <Link
+                className="link link-hover text-primary"
+                to="/student/details/add/academic"
+              >
+                Add Academic Details
+              </Link>
+            )}
+            {studentDetails?.others_info ? (
+              <OthersDetails refetch={refetch} details={studentDetails?.others_info} />
+            ) : (
+              <Link
+                className="link link-hover text-primary"
+                to="/student/details/add/others"
+              >
+                Add Others Details
+              </Link>
+            )}
+          </div>
+        </div>
       </div>
       {modalOpen && (
         <BasicEdit

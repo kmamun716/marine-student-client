@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import EditAcademicDetailsModal from '../EditModal/EditAcademicDetailsModal';
 
 const AcademicDetails = ({ details, refetch }) => {
-    console.log(details)
     const [modalOpen, setModalOpen] = useState(false);
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
