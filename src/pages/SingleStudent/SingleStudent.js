@@ -1,8 +1,11 @@
+import axios from 'axios';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import female from "../../asstes/images/female.jpg";
 import male from "../../asstes/images/male.png";
 import Loading from '../../components/shared/Loading';
+import useGetSingleUser from '../../hooks/useGetSingleUser';
 import useGetStudentById from '../../hooks/useGetUserById';
 import AcademicDetails from './AcademicDetails';
 import EmploymentDetails from './EmploymentDetails';
@@ -10,20 +13,29 @@ import OthersDetails from './OthersDetails';
 import PersonalDetails from './PersonalDetails';
 
 const SingleStudent = () => {
+    const token = localStorage.getItem('authToken')
     const location = useLocation();
     const studentId = location.state;
     const [student, isLoading] = useGetStudentById(studentId);
-    const handleSentRequest=(id)=>{
-        const token = localStorage.getItem('authToken')
+    const [studentData, studentIsLoading] = useGetSingleUser(token);
+    const handleSentRequest=async (id)=>{
+        const request = await axios.post(`http://localhost:4000/api/v1/external/contactRequest/${id}`,null,{
+            headers:{
+                authorization: `Bearer ${token}`
+            }
+        });
+        if(request?.status === 200){
+            toast.success(request?.data?.message)
+        }
     }
-    if (isLoading) {
+    if (isLoading || studentIsLoading) {
         return <Loading />
     }
-    console.log(student)
+    const requested = student?.contract_request?.find(cr=>cr?.requester === studentData?.id);
     return (
         <div>
             <div className="flex justify-center gap-2 mb-4">
-                <div className='flex items-center'>
+                <div className='flex items-center gap-2'>
                     <img
                         src={student?.personal_info?.photo ? student?.personal_info?.photo : student?.gender === 'male' ? male : female}
                         alt={student?.name}
@@ -31,9 +43,11 @@ const SingleStudent = () => {
                     />
                     <div>
                         <h3>Name: {student?.name}</h3>
-                        <p>Email: {student?.email}</p>
-                        <p>Mobile: {student?.mobile}</p>
-                        <button onClick={()=>handleSentRequest(studentId)} className='btn btn-secondary btn-sm'>Sent Request</button>
+                        <p>Email: {requested?.permission === 'accepted'? student?.email : <span className='text-red-500'>Not Have Permission</span>}</p>
+                        <p>Mobile: {requested?.permission === 'accepted'? student?.mobile : <span className='text-red-500'>Not Have Permission</span>}</p>
+                        {
+                           !requested ? <button onClick={()=>handleSentRequest(studentId)} className='btn btn-secondary btn-sm'>Sent Request For Contact Details</button> : requested?.permission !== 'accepted' && <p className='text-blue-300'>Request Sent, Please Wait For Confirmation</p>
+                        }
                     </div>
                 </div>
             </div>

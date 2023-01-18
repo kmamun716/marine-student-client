@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 
-const useGetSingleUser = (token, ) => {
+const useGetSingleUser = (token) => {
   const navigate = useNavigate();
   const [student, setStudent] = useState({});
   const [isLoading, setIsLoading] = useState(true);
