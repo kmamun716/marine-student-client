@@ -20,7 +20,7 @@ const EmploymentDetails = ({ details }) => {
                         </thead>
                         <tbody>
                             {
-                                details.map((em, index) => <tr className={`${index % 2 === 0 && 'active'}`} key={index}>
+                                details?.map((em, index) => <tr className={`${index % 2 === 0 && 'active'}`} key={index}>
                                     <th data-label="S.No">{index + 1}</th>
                                     <td data-label="Company">{em?.companyName}</td>
                                     <td data-label="Department">{em?.department}</td>

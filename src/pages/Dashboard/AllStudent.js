@@ -74,6 +74,8 @@ const AllStudent = () => {
                             <th></th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Course</th>
+                            <th>Intake</th>
                             <th>Role</th>
                             <th>Status</th>
                             <th>Change Role</th>
@@ -81,10 +83,12 @@ const AllStudent = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {currentRecords?.map((student, index) => <tr className={index % 2 !== 0 ? 'active' : ''} key={student?.id}>
+                        {currentRecords?.map((student, index) => <tr className={index % 2 === 0 ? 'active' : ''} key={student?.id}>
                             <th>{index + 1}</th>
                             <td className='link link-hover text-info'><Link to={`/student/${student?.name.replace(/\s+/g, "-")}`} state={student?.id}>{student?.name}</Link></td>
                             <td>{student?.email}</td>
+                            <td>{student?.course}</td>
+                            <td>{student?.intake}</td>
                             <td>{student?.role}</td>
                             <td>{student?.status}</td>
                             <td>

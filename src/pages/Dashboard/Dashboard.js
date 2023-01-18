@@ -25,6 +25,7 @@ const Dashboard = () => {
                         {
                             student?.status === 'active' && student?.role !== 'admin' && <li><Link to='/dashboard/search/student'>Search Student</Link></li>
                         }
+                        <li><Link to="/dashboard/contact-request">Contact Request</Link></li>
                         {
                             student?.role === "admin" && <>
                                 <li><Link to='/dashboard/all-student'>Student List</Link></li>

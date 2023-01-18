@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Female from '../../asstes/images/female.jpg';
+import Male from '../../asstes/images/male.png';
 import Paginate from '../../components/shared/Paginate';
 
 const SearchedStudent = ({ students }) => {
@@ -14,6 +16,7 @@ const SearchedStudent = ({ students }) => {
                 <table className="table w-full">
                     <thead>
                         <tr>
+                            <th className='text-center'>SL</th>
                             <th className='text-center'>Name</th>
                             <th>Course</th>
                             <th>Intake</th>
@@ -23,13 +26,16 @@ const SearchedStudent = ({ students }) => {
                     </thead>
                     <tbody>
                         {
-                            currentRecords?.map(student => <tr key={student?.id}>
+                            currentRecords?.map((student, index) => <tr className={`${index %2 ===0 && 'active'}`} key={student?.id}>
+                                <td>
+                                    {index+1}
+                                </td>
                                 <td>
                                     <div className="flex items-center space-x-3">
                                         <div className="avatar">
                                             <div className="mask mask-squircle w-12 h-12">
                                                 <img
-                                                    src={student?.personal_info?.photo}
+                                                    src={student?.personal_info?.photo?student?.personal_info?.photo : student?.gender ==='male'? Male : Female}
                                                     alt={student?.name}
                                                 />
                                             </div>
@@ -40,10 +46,10 @@ const SearchedStudent = ({ students }) => {
                                     </div>
                                 </td>
                                 <td>
-                                    {student?.academic_info?.course}
+                                    {student?.course}
                                 </td>
-                                <td>{student?.academic_info?.intake}</td>
-                                <td>{student?.academic_info?.status}</td>
+                                <td>{student?.intake}</td>
+                                <td>{student?.academicStatus}</td>
                                 <th><Link className='btn btn-xs' to={`/student/${student?.name.replace(/\s+/g, "-")}`} state={student?.id}>More Info</Link></th>
                             </tr>)
                         }

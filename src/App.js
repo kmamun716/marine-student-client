@@ -6,6 +6,7 @@ import RequireAdmin from './components/auth/ReuireAdmin';
 import Footer from './components/shared/Footer';
 import Header from './components/shared/Header';
 import AllStudent from './pages/Dashboard/AllStudent';
+import ContactRequest from './pages/Dashboard/ContactRequest';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Profile from './pages/Dashboard/Profile';
 import SearchStudent from './pages/Dashboard/SearchStudent';
@@ -32,6 +33,7 @@ function App() {
         <Route path='/student/:slug' element={<SingleStudent />} />
         <Route path='/dashboard' element={<RequireAuth><Dashboard /></RequireAuth>} >
           <Route index element={<Profile/>} />
+          <Route path='/dashboard/contact-request' element={<ContactRequest/>} />
           <Route path='/dashboard/search/student' element={<RequireActive><SearchStudent/></RequireActive>} />
           <Route path='/dashboard/all-student' element={<RequireAdmin><AllStudent/></RequireAdmin>} />
         </Route>

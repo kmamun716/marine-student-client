@@ -6,23 +6,28 @@ import './searchStudent.css';
 const SearchStudent = () => {
     const [query, setQuery] = useState({
         name: '',
-        course: '',
+        course: 'DEMT',
         intake: null
     });
     const [showForm, setShowForm] = useState(true);
     const [searchedStudents, setSearchStudent] = useState([]);
     const [error, setError] = useState(null);
     const handleReSearch = () => {
-        setQuery('')
+        setQuery({
+            name: '',
+            course: 'DEMT',
+            intake: null
+        })
         setSearchStudent([])
         setError(null)
         setShowForm(true)
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(query)
         setShowForm(false)
         try {
-            const res = await axios.post(`http://localhost:4000/api/v1/student/search`,query)
+            const res = await axios.post(`http://localhost:4000/api/v1/student/search`, query)
             if (res?.status === 200) {
                 setSearchStudent(res.data);
                 setError(null)
@@ -34,7 +39,7 @@ const SearchStudent = () => {
             }
         }
     };
-    const handleChange=(e)=>{
+    const handleChange = (e) => {
         setQuery({
             ...query,
             [e.target.name]: e.target.value
@@ -45,7 +50,8 @@ const SearchStudent = () => {
             <section className='slider bg-gray-200'>
                 <div className="form-control search-group">
                     {
-                        showForm && <div>
+                        showForm && <>
+                            <p className='font-bold'>Search By Name:</p>
                             <form onSubmit={handleSubmit}>
                                 <div className="input-group">
                                     <input type="text"
@@ -66,6 +72,7 @@ const SearchStudent = () => {
                                     className="select select-bordered w-64 max-w-xs"
                                     name='course'
                                     onChange={handleChange}
+                                    value={query.course || ''}
                                 >
                                     <option value='select' disabled>Select One</option>
                                     <option value="DEMT">DEMT</option>
@@ -82,9 +89,9 @@ const SearchStudent = () => {
                                     required
                                     name='intake'
                                 />
-                                <input className='btn btn-sm btn-primary' type="submit" value='Search'/>
+                                <input className='btn btn-sm btn-primary' type="submit" value='Search' />
                             </form>
-                        </div>
+                        </>
                     }
                     <div className='my-2'>
                         <div className='flex justify-center gap-2 my-2'>
