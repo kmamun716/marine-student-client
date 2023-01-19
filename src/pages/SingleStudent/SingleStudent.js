@@ -16,22 +16,25 @@ const SingleStudent = () => {
     const token = localStorage.getItem('authToken')
     const location = useLocation();
     const studentId = location.state;
-    const [student, isLoading] = useGetStudentById(studentId);
+    const [student, isLoading, refetch] = useGetStudentById(studentId);
     const [studentData, studentIsLoading] = useGetSingleUser(token);
-    const handleSentRequest=async (id)=>{
-        const request = await axios.post(`http://localhost:4000/api/v1/external/contactRequest/${id}`,null,{
-            headers:{
-                authorization: `Bearer ${token}`
+    const handleSentRequest = async (id) => {
+        if (id !== studentData?.id) {
+            const request = await axios.post(`http://localhost:4000/api/v1/external/contactRequest/${id}`, null, {
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            });
+            if (request?.status === 200) {
+                toast.success(request?.data?.message)
+                refetch()
             }
-        });
-        if(request?.status === 200){
-            toast.success(request?.data?.message)
         }
     }
     if (isLoading || studentIsLoading) {
         return <Loading />
     }
-    const requested = student?.contract_request?.find(cr=>cr?.requester === studentData?.id);
+    const requested = student?.contact_request?.find(cr => cr?.requestBy === studentData?.id);
     return (
         <div>
             <div className="flex justify-center gap-2 mb-4">
@@ -43,10 +46,10 @@ const SingleStudent = () => {
                     />
                     <div>
                         <h3>Name: {student?.name}</h3>
-                        <p>Email: {requested?.permission === 'accepted'? student?.email : <span className='text-red-500'>Not Have Permission</span>}</p>
-                        <p>Mobile: {requested?.permission === 'accepted'? student?.mobile : <span className='text-red-500'>Not Have Permission</span>}</p>
+                        <p>Email: {(studentId === studentData?.id || requested?.permission === 'yes') ? student?.email : <span className='text-red-500'>Not Have Permission To See</span>}</p>
+                        <p>Mobile: {(requested?.permission === 'yes' || studentId === studentData?.id) ? student?.mobile : <span className='text-red-500'>Not Have Permission To See</span>}</p>
                         {
-                           !requested ? <button onClick={()=>handleSentRequest(studentId)} className='btn btn-secondary btn-sm'>Sent Request For Contact Details</button> : requested?.permission !== 'accepted' && <p className='text-blue-300'>Request Sent, Please Wait For Confirmation</p>
+                            !requested ? <button onClick={() => handleSentRequest(studentId)} className='btn btn-secondary btn-sm'>Sent Request For Contact Details</button> : requested?.permission !== 'yes' && <p className='text-green-500'>Request Sent, Please Wait For Confirmation <span className='text-red-500'>or</span> Contact With Admin</p>
                         }
                     </div>
                 </div>

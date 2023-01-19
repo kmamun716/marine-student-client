@@ -10,6 +10,7 @@ import ContactRequest from './pages/Dashboard/ContactRequest';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Profile from './pages/Dashboard/Profile';
 import SearchStudent from './pages/Dashboard/SearchStudent';
+import StudentContactRequest from './pages/Dashboard/StudentContactRequest';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import NotFound from './pages/NotFound/NotFound';
@@ -36,6 +37,7 @@ function App() {
           <Route path='/dashboard/contact-request' element={<ContactRequest/>} />
           <Route path='/dashboard/search/student' element={<RequireActive><SearchStudent/></RequireActive>} />
           <Route path='/dashboard/all-student' element={<RequireAdmin><AllStudent/></RequireAdmin>} />
+          <Route path='/dashboard/student/contact-request' element={<RequireAdmin><StudentContactRequest/></RequireAdmin>} />
         </Route>
         {/* update student details */}
         <Route path='/student/details/add' element={<RequireAuth><AddDetails/></RequireAuth>}>

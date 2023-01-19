@@ -83,15 +83,15 @@ const AllStudent = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {currentRecords?.map((student, index) => <tr className={index % 2 === 0 ? 'active' : ''} key={student?.id}>
-                            <th>{index + 1}</th>
-                            <td className='link link-hover text-info'><Link to={`/student/${student?.name.replace(/\s+/g, "-")}`} state={student?.id}>{student?.name}</Link></td>
-                            <td>{student?.email}</td>
-                            <td>{student?.course}</td>
-                            <td>{student?.intake}</td>
-                            <td>{student?.role}</td>
-                            <td>{student?.status}</td>
-                            <td>
+                        {currentRecords?.map((student, index) => <tr className={index % 2 !== 0 ? 'active' : ''} key={student?.id}>
+                            <td data-label="Sl">{index + 1}</td>
+                            <td data-label="Name" className='link link-hover text-info'><Link to={`/student/${student?.name.replace(/\s+/g, "-")}`} state={student?.id}>{student?.name}</Link></td>
+                            <td data-label="Course">{student?.email}</td>
+                            <td data-label="Course">{student?.course}</td>
+                            <td data-label="Intake">{student?.intake}</td>
+                            <td data-label="Role">{student?.role}</td>
+                            <td data-label="Status">{student?.status}</td>
+                            <td data-label="Change Role">
                                 {
                                     student?.role === "user" ? <label
                                     htmlFor="role-change-modal"
@@ -108,7 +108,7 @@ const AllStudent = () => {
                                   </label>
                                 }
                             </td>
-                            <td>
+                            <td data-label="Change Status">
                                 {
                                     student?.status === "pending" ? <button onClick={() => changeQuery({ status: 'active' }, student?.id)} className="btn btn-primary btn-xs">Make Active</button> : <button onClick={() => changeQuery({ status: 'pending' }, student?.id)} className="btn btn-warning btn-xs">Make Pending</button>
                                 }
