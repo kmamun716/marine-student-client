@@ -84,7 +84,7 @@ const AllStudent = () => {
                     </thead>
                     <tbody>
                         {currentRecords?.map((student, index) => <tr className={index % 2 !== 0 ? 'active' : ''} key={student?.id}>
-                            <td data-label="Sl">{index + 1}</td>
+                            <td data-label="Sl"><span className={`${index % 2 !== 0 && 'text-black'}`}>{index + 1}</span></td>
                             <td data-label="Name" className='link link-hover text-info'><Link to={`/student/${student?.name.replace(/\s+/g, "-")}`} state={student?.id}>{student?.name}</Link></td>
                             <td data-label="Course">{student?.email}</td>
                             <td data-label="Course">{student?.course}</td>

@@ -30,7 +30,7 @@ const EmploymentDetails = ({ details, refetch }) => {
                     <table className="table table-compact w-64">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th>Sl</th>
                                 <th>Company</th>
                                 <th>Department</th>
                                 <th>Designation</th>
@@ -42,8 +42,8 @@ const EmploymentDetails = ({ details, refetch }) => {
                         </thead>
                         <tbody>
                             {
-                                details?.map((em, index) => <tr className={`${index % 2 === 0 && 'active'}`} key={index}>
-                                    <th data-label="S.No"><span className={`${index % 2 === 0 && 'text-black'}`}>{index + 1}</span></th>
+                                details?.map((em, index) => <tr className={`${index % 2 !== 0 && 'active'}`} key={index}>
+                                    <td data-label="Sl"><span className={`${index % 2 !== 0 && 'text-black'}`}>{index + 1}</span></td>
                                     <td data-label="Company">{em?.companyName}</td>
                                     <td data-label="Department">{em?.department}</td>
                                     <td data-label="Designation">{em?.designation}</td>

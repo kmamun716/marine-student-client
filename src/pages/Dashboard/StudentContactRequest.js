@@ -49,7 +49,7 @@ const StudentContactRequest = () => {
                     <tbody>
                         {
                             requests?.map((request, index) => <tr className={index % 2 !== 0 ? 'active' : ''} key={request?.id}>
-                                <td data-label="Sl">{index + 1}</td>
+                                <td data-label="Sl"><span className={`${index % 2 !== 0 && 'text-black'}`}>{index + 1}</span></td>
                                 <td data-label="Request By" className='link link-hover text-info'><Link to={`/student/${request?.student?.name.replace(/\s+/g, "-")}`} state={request?.student?.id}>{request?.student?.name}</Link></td>
                                 <td data-label="Request To" className='link link-hover text-info'><Link to={`/student/${request?.requested_user?.name.replace(/\s+/g, "-")}`} state={request?.requested_user?.id}>{request?.requested_user?.name}</Link></td>
                                 <td data-label="Permission" className={`font-bold ${request?.permission === 'yes' ? 'text-green-500' : 'text-red-500'}`}>{request?.permission}</td>

@@ -52,7 +52,7 @@ const ContactRequest = () => {
                         <tbody>
                             {
                                 requests?.map((request, index)=><tr className={index % 2 !== 0 ? 'active' : ''} key={request?.id}>
-                                    <td data-label="Sl">{index+1}</td>
+                                    <td data-label="Sl"><span className={`${index % 2 !== 0 && 'text-black'}`}>{index + 1}</span></td>
                                     <td data-label="Request By">{request?.student.name}</td>
                                     <td data-label="Course">{request?.student.course}</td>
                                     <td data-label="Intake">{request?.student.intake}</td>
