@@ -5,6 +5,8 @@ import RequireAuth from './components/auth/RequireAuth';
 import RequireAdmin from './components/auth/ReuireAdmin';
 import Footer from './components/shared/Footer';
 import Header from './components/shared/Header';
+import About from './pages/About/About';
+import ContactUs from './pages/ContactUs/ContactUs';
 import AllStudent from './pages/Dashboard/AllStudent';
 import ContactRequest from './pages/Dashboard/ContactRequest';
 import Dashboard from './pages/Dashboard/Dashboard';
@@ -46,6 +48,8 @@ function App() {
           <Route path='/student/details/add/academic' element={<AddAcademicDetails/>} />
           <Route path='/student/details/add/others' element={<AddOtherDetails/>} />
         </Route>
+        <Route path='/about' element={<About/>}/>
+        <Route path='/contact' element={<ContactUs/>}/>
         <Route path='/forgotPasss/:id/reset' element={<ResetPassword/>}/>
         <Route path='*' element={<NotFound />} />
       </Routes>

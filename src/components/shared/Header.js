@@ -6,11 +6,18 @@ const Header = () => {
     const location = useLocation();
     const token = localStorage.getItem('authToken');
     const navMenu = <>
-        <li>{token ? <p onClick={() => {
-            localStorage.removeItem('authToken')
-            navigate('/login')
-        }}>Log Out</p> : location.pathname !== '/login' ? <Link to='/login'>Login</Link> : ''}</li>
-        <li><Link to='/dashboard'>Dashboard</Link></li>
+        {token ? <>
+            <li><p onClick={() => {
+                localStorage.removeItem('authToken')
+                navigate('/login')
+            }}>Log Out</p></li>
+            <li><Link to='/dashboard'>Dashboard</Link></li>
+        </> : <>
+        <li>{location.pathname !== '/login' ? <Link to='/login'>Login</Link> : ''}</li>
+        <li>{location.pathname !== '/register' ? <Link to='/register'>Registration</Link> : ''}</li>
+        </>}
+        <li><Link to='/about'>About Us</Link></li>
+        <li><Link to='/contact'>Contact</Link></li>
     </>;
     return (
         <header>
