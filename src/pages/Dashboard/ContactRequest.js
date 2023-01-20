@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import Loading from '../../components/shared/Loading';
+import Paginate from '../../components/shared/Paginate';
 
 const ContactRequest = () => {
     const token = localStorage.getItem('authToken');
@@ -13,9 +14,13 @@ const ContactRequest = () => {
         });
         return await res.json();
     });
-
-    const handleRequest= (id, data)=>{
-        fetch(`http://localhost:4000/api/v1/external/contactRequest/edit/${id}`,{
+    const [currentPage, setCurrentPage] = useState(1);
+    const indexOfLastPage = currentPage * 10;
+    const indexOfFirstPage = indexOfLastPage - 10;
+    const currentRecords = requests?.slice(indexOfFirstPage, indexOfLastPage);
+    const nPages = Math.ceil(requests?.length / 10);
+    const handleRequest = (id, data) => {
+        fetch(`http://localhost:4000/api/v1/external/contactRequest/edit/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `Bearer ${token}`,
@@ -23,11 +28,11 @@ const ContactRequest = () => {
             },
             body: JSON.stringify(data)
         })
-        .then(res=> res.json())
-        .then(data=>{
-            toast.success(data?.message);
-            refetch()
-        })
+            .then(res => res.json())
+            .then(data => {
+                toast.success(data?.message);
+                refetch()
+            })
     }
 
     if (isLoading) {
@@ -51,19 +56,28 @@ const ContactRequest = () => {
                         </thead>
                         <tbody>
                             {
-                                requests?.map((request, index)=><tr className={index % 2 !== 0 ? 'active' : ''} key={request?.id}>
+                                currentRecords?.map((request, index) => <tr className={index % 2 !== 0 ? 'active' : ''} key={request?.id}>
                                     <td data-label="Sl"><span className={`${index % 2 !== 0 && 'text-black'}`}>{index + 1}</span></td>
                                     <td data-label="Request By">{request?.student.name}</td>
                                     <td data-label="Course">{request?.student.course}</td>
                                     <td data-label="Intake">{request?.student.intake}</td>
-                                    <td data-label="Permission" className={`font-bold ${request?.permission === 'yes'? 'text-green-500' : 'text-red-500'}`}>{request?.permission}</td>
+                                    <td data-label="Permission" className={`font-bold ${request?.permission === 'yes' ? 'text-green-500' : 'text-red-500'}`}>{request?.permission}</td>
                                     <td data-label="Action">{
-                                        request?.permission === 'yes' ? <button onClick={()=>handleRequest(request?.id, {permission: 'no'})} className='btn btn-xs btn-secondary'>Decline</button> : <button onClick={()=>handleRequest(request?.id, {permission: 'yes'})} className='btn btn-xs btn-info'>Accept</button>
+                                        request?.permission === 'yes' ? <button onClick={() => handleRequest(request?.id, { permission: 'no' })} className='btn btn-xs btn-secondary'>Decline</button> : <button onClick={() => handleRequest(request?.id, { permission: 'yes' })} className='btn btn-xs btn-info'>Accept</button>
                                     }</td>
                                 </tr>)
                             }
                         </tbody>
                     </table> : <h2 className='text-xl text-red-500 my-10 font-bold'>No Request Found</h2>
+                }
+            </div>
+            <div className="flex justify-center mt-2">
+                {
+                    nPages > 1 && <Paginate
+                        nPages={nPages + 1}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
+                    />
                 }
             </div>
         </div>

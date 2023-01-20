@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loading from '../../components/shared/Loading';
+import Paginate from '../../components/shared/Paginate';
 
 const StudentContactRequest = () => {
     const token = localStorage.getItem('authToken');
@@ -14,6 +15,11 @@ const StudentContactRequest = () => {
         });
         return await res.json();
     });
+    const [currentPage, setCurrentPage] = useState(1);
+    const indexOfLastPage = currentPage * 20;
+    const indexOfFirstPage = indexOfLastPage - 20;
+    const currentRecords = requests?.slice(indexOfFirstPage, indexOfLastPage);
+    const nPages = Math.ceil(requests?.length / 20);
     const handleRequest = (id, data) => {
         fetch(`http://localhost:4000/api/v1/external/contactRequest/edit/${id}`, {
             method: 'PUT',
@@ -36,7 +42,7 @@ const StudentContactRequest = () => {
         <div>
             <h4 className='text-xl underline text-center mb-2'>All Contact Request Details</h4>
             {
-                requests?.length > 0 ? <table className="table w-full">
+                currentRecords?.length > 0 ? <table className="table w-full">
                     <thead>
                         <tr>
                             <th>Sl</th>
@@ -48,7 +54,7 @@ const StudentContactRequest = () => {
                     </thead>
                     <tbody>
                         {
-                            requests?.map((request, index) => <tr className={index % 2 !== 0 ? 'active' : ''} key={request?.id}>
+                            currentRecords?.map((request, index) => <tr className={index % 2 !== 0 ? 'active' : ''} key={request?.id}>
                                 <td data-label="Sl"><span className={`${index % 2 !== 0 && 'text-black'}`}>{index + 1}</span></td>
                                 <td data-label="Request By" className='link link-hover text-info'><Link to={`/student/${request?.student?.name.replace(/\s+/g, "-")}`} state={request?.student?.id}>{request?.student?.name}</Link></td>
                                 <td data-label="Request To" className='link link-hover text-info'><Link to={`/student/${request?.requested_user?.name.replace(/\s+/g, "-")}`} state={request?.requested_user?.id}>{request?.requested_user?.name}</Link></td>
@@ -61,6 +67,15 @@ const StudentContactRequest = () => {
                     </tbody>
                 </table> : <p className="text-xl text-red-500 font-bold">No Request Found</p>
             }
+            <div className="flex justify-center mt-2">
+                {
+                    nPages > 1 && <Paginate
+                        nPages={nPages + 1}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
+                    />
+                }
+            </div>
         </div>
     );
 };
