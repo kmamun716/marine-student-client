@@ -24,6 +24,7 @@ import AddDetails from './pages/StudentDetails/AddDetails';
 import AddEmploymentDetails from './pages/StudentDetails/AddEmploymentDetails';
 import AddOtherDetails from './pages/StudentDetails/AddOtherDetails';
 import AddPersonalDetails from './pages/StudentDetails/AddPersonalDetails';
+import StudentsByEmployment from './pages/StudentsByEmployment/StudentsByEmployment';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
         <Route path='/student/:slug' element={<SingleStudent />} />
+        <Route path='/employee/:slug' element={<StudentsByEmployment />} />
         <Route path='/dashboard' element={<RequireAuth><Dashboard /></RequireAuth>} >
           <Route index element={<Profile/>} />
           <Route path='/dashboard/contact-request' element={<ContactRequest/>} />

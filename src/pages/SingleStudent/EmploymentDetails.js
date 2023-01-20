@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const EmploymentDetails = ({ details }) => {
     return (
@@ -22,7 +23,7 @@ const EmploymentDetails = ({ details }) => {
                             {
                                 details?.map((em, index) => <tr className={`${index % 2 !== 0 && 'active'}`} key={index}>
                                     <td data-label="Sl">{index + 1}</td>
-                                    <td data-label="Company">{em?.companyName}</td>
+                                    <td data-label="Company"><Link to={`/employee/${em?.companyName.replace(/\s+/g, "-")}`}>{em?.companyName}</Link></td>
                                     <td data-label="Department">{em?.department}</td>
                                     <td data-label="Designation">{em?.designation}</td>
                                     <td data-label="City">{em?.city}</td>
