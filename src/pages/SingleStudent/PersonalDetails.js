@@ -5,18 +5,11 @@ const PersonalDetails = ({details}) => {
         <div className="card w-96 bg-red-200 shadow-xl">
             <div className=" card-body">
                 <h2 className="card-title">Personal Information:</h2>
-                <p>Father : {details?.father}</p>
-                <p>Mother : {details?.mother}</p>
                 <p>Blood Group : {details?.bloodGroup}</p>
-                <p>Date of Birth : {details?.mother}</p>
                 <p>Present Address : {details?.presentAddress}</p>
                 <p>Permanent Address : {details?.permanentAddress}</p>
-                <p>National ID No : {details?.nId}</p>
-                <p>Religion : {details?.religion}</p>
-                <p>Whatsapp : {details?.whatsApp}</p>
                 <p>Facebook : {details?.facebook}</p>
                 <p>Linkedin : {details?.linkedIn}</p>
-                <p>Status : {details?.employmentStatus}</p>
             </div>
         </div>
     );

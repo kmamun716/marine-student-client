@@ -93,15 +93,14 @@ const AddPersonalDetails = () => {
             </div>
             <div className="form-control w-64 max-w-xs">
               <label className="label">
-                <span className="label-text">National Id No:</span>
+                <span className="label-text">National Id No (if any):</span>
               </label>
               <input
                 type="text"
                 placeholder="Your Nation ID"
                 className="input input-bordered w-full max-w-xs"
-                {...register("nId", { required: true })}
+                {...register("nId")}
               />
-              {errors?.nId && <p className="text-red-500">National ID is Required</p>}
             </div>
           </div>
           <div>
@@ -125,9 +124,8 @@ const AddPersonalDetails = () => {
                 type="text"
                 placeholder="Religion"
                 className="input input-bordered w-full max-w-xs"
-                {...register("religion", { required: true })}
+                {...register("religion")}
               />
-              {errors?.religion && <p className="text-red-500">Relegion is Required</p>}
             </div>
             <div className="form-control w-64 max-w-xs">
               <label className="label">
@@ -137,9 +135,8 @@ const AddPersonalDetails = () => {
                 type="text"
                 placeholder="Your Whatsapp No"
                 className="input input-bordered w-full max-w-xs"
-                {...register("whatsApp", { required: true })}
+                {...register("whatsApp")}
               />
-              {errors?.whatsApp && <p className="text-red-500">Whatsapp is Required</p>}
             </div>
             <div className="form-control w-64 max-w-xs">
               <label className="label">
