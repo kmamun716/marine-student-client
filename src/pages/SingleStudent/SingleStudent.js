@@ -9,7 +9,6 @@ import useGetSingleUser from '../../hooks/useGetSingleUser';
 import useGetStudentById from '../../hooks/useGetUserById';
 import AcademicDetails from './AcademicDetails';
 import EmploymentDetails from './EmploymentDetails';
-import OthersDetails from './OthersDetails';
 import PersonalDetails from './PersonalDetails';
 
 const SingleStudent = () => {
@@ -56,23 +55,14 @@ const SingleStudent = () => {
             </div>
             <div className="flex flex-col items-center gap-2">
                 {
-                    student?.employment_info.length > 0 ? <EmploymentDetails details={student?.employment_info} /> : <p className='text-xl text-red-500'>Employment Details Not Added</p>
+                    student?.personal_info && <PersonalDetails details={student?.personal_info} /> 
                 }
-                <div className={`flex flex-col lg:flex-row gap-4`}>
-                    <div>
-                        {
-                            student?.personal_info ? <PersonalDetails details={student?.personal_info} /> : <p className='text-xl text-red-500'>Personal Details Not Added</p>
-                        }
-                    </div>
-                    <div className='flex flex-col gap-2'>
-                        {
-                            student?.course ? <AcademicDetails details={student} /> : <p className='text-xl text-red-500'>Academic Details Not Added</p>
-                        }
-                        {
-                            student?.others_info ? <OthersDetails details={student?.others_info} /> : <p className='text-xl text-red-500'>Emmmergency Contact Details Not Added</p>
-                        }
-                    </div>
-                </div>
+                {
+                    student?.course && <AcademicDetails details={student} />
+                }
+                {
+                    student?.employment_info.length > 0 && <EmploymentDetails details={student?.employment_info} />
+                }
             </div>
         </div>
     );

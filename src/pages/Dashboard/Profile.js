@@ -21,6 +21,7 @@ const Profile = () => {
   if (isLoading || detailsLoading) {
     return <Loading />;
   }
+  console.log(studentDetails)
   return (
     <div>
       <div className="avatar">

@@ -15,7 +15,7 @@ const AddPersonalDetails = () => {
           authorization: `Bearer ${token}`
         }
       });
-      if(res.status === 201){
+      if (res.status === 201) {
         navigate('/dashboard')
         toast.success('Personal Details Added Successfully');
       }
@@ -73,23 +73,22 @@ const AddPersonalDetails = () => {
               </label>
               <input
                 type="text"
-                placeholder="Present Address"
-                className="input input-bordered w-full max-w-xs"
-                {...register("presentAddress", { required: true })}
+                placeholder="Road No or Name and State"
+                className="input input-bordered input-sm w-full max-w-xs"
+                {...register("presentRoad")}
               />
-              {errors?.presentAddress && <p className="text-red-500">Present Address is Required</p>}
-            </div>
-            <div className="form-control w-64 max-w-xs">
-              <label className="label">
-                <span className="label-text">Permanent Address:</span>
-              </label>
               <input
                 type="text"
-                placeholder="Permanent Address"
-                className="input input-bordered w-full max-w-xs"
-                {...register("permanentAddress", { required: true })}
+                placeholder="District"
+                className="input input-bordered input-sm w-full max-w-xs"
+                {...register("presentDistrict")}
               />
-              {errors?.permanentAddress && <p className="text-red-500">Permanent Address is Required</p>}
+              <input
+                type="text"
+                placeholder="country"
+                className="input input-bordered input-sm w-full max-w-xs"
+                {...register("presentCountry")}
+              />
             </div>
             <div className="form-control w-64 max-w-xs">
               <label className="label">
@@ -102,8 +101,6 @@ const AddPersonalDetails = () => {
                 {...register("nId")}
               />
             </div>
-          </div>
-          <div>
             <div className="form-control w-64 max-w-xs">
               <label className="label">
                 <span className="label-text">Blood Group:</span>
@@ -116,17 +113,9 @@ const AddPersonalDetails = () => {
               />
               {errors?.bloodGroup && <p className="text-red-500">Blood Group is Required</p>}
             </div>
-            <div className="form-control w-64 max-w-xs">
-              <label className="label">
-                <span className="label-text">Religion:</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Religion"
-                className="input input-bordered w-full max-w-xs"
-                {...register("religion")}
-              />
-            </div>
+            
+          </div>
+          <div>            
             <div className="form-control w-64 max-w-xs">
               <label className="label">
                 <span className="label-text">Whatsapp No:</span>
@@ -163,7 +152,30 @@ const AddPersonalDetails = () => {
             </div>
             <div className="form-control w-64 max-w-xs">
               <label className="label">
-                <span className="label-text">Employment Status:</span>
+                <span className="label-text">Permanent Address:</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Road No or Name and state"
+                className="input input-bordered input-sm w-full max-w-xs"
+                {...register("permanentRoad")}
+              />
+              <input
+                type="text"
+                placeholder="District"
+                className="input input-bordered input-sm w-full max-w-xs"
+                {...register("permanentDistrict")}
+              />
+              <input
+                type="text"
+                placeholder="country"
+                className="input input-bordered input-sm w-full max-w-xs"
+                {...register("permanentCountry")}
+              />
+            </div>
+            <div className="form-control w-64 max-w-xs">
+              <label className="label">
+                <span className="label-text">Current Employment Status:</span>
               </label>
               <select
                 {...register("employmentStatus", { required: true })}
