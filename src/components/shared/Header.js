@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import bimtian from '../../asstes/images/bimtian.png';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -16,13 +17,11 @@ const Header = () => {
         <li>{location.pathname !== '/login' ? <Link to='/login'>Login</Link> : ''}</li>
         <li>{location.pathname !== '/register' ? <Link to='/register'>Registration</Link> : ''}</li>
         </>}
-        <li><Link to='/about'>About Us</Link></li>
-        <li><Link to='/contact'>Contact</Link></li>
     </>;
     return (
         <header>
             <nav>
-                <div className="navbar bg-zinc-300">
+                <div className="navbar bg-cyan-400">
                     <div className="navbar-start">
                         <div className="dropdown">
                             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -32,7 +31,7 @@ const Header = () => {
                                 {navMenu}
                             </ul>
                         </div>
-                        <Link to='/' className="btn btn-ghost normal-case text-xl">BIMTIAN</Link>
+                        <Link to='/' className="btn btn-ghost normal-case text-xl"><img src={bimtian} width="100px" alt="BIMTian" /></Link>
                     </div>
                     <div className="navbar-center hidden lg:flex">
                         <ul className="menu menu-horizontal px-1">

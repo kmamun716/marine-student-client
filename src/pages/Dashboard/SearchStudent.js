@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { host } from '../../components/shared/host';
 import SearchedStudent from './SearchedStudent';
 import './searchStudent.css';
 
@@ -27,7 +28,7 @@ const SearchStudent = () => {
         console.log(query)
         setShowForm(false)
         try {
-            const res = await axios.post(`http://localhost:4000/api/v1/student/search`, query)
+            const res = await axios.post(`${host}/api/v1/student/search`, query)
             if (res?.status === 200) {
                 setSearchStudent(res.data);
                 setError(null)

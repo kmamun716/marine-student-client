@@ -50,7 +50,7 @@ const SearchedStudent = ({ students }) => {
                                 </td>
                                 <td>{student?.intake}</td>
                                 <td>{student?.academicStatus}</td>
-                                <th><Link className='btn btn-xs' to={`/student/${student?.name.replace(/\s+/g, "-")}`} state={student?.id}>More Info</Link></th>
+                                <th><Link className='btn btn-xs' to={`/student/${student?.name.replace(/\s+/g, "-")}?${student?.id}`} state={student?.id}>More Info</Link></th>
                             </tr>)
                         }
                     </tbody>

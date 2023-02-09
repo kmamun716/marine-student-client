@@ -3,8 +3,10 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { host } from '../../components/shared/host';
 import Loading from '../../components/shared/Loading';
 import Paginate from '../../components/shared/Paginate';
+import setAuthHeader from '../../components/shared/setAuthHeader';
 import useGetSingleUser from '../../hooks/useGetSingleUser';
 import RoleChangeConfirmation from './RoleChangeConfirmation';
 
@@ -19,16 +21,13 @@ const AllStudent = () => {
         id: null
     });
     const { data, isLoading, refetch } = useQuery(['students'], async () => {
-        const res = await fetch('http://localhost:4000/api/v1/student/all');
+        const res = await fetch(`${host}/api/v1/student/all`);
         return await res.json();
     })
     const changeQuery = async (filter, id) => {
-        const token = localStorage.getItem('authToken')
-        const result = await axios.put(`http://localhost:4000/api/v1/auth/${id}`, filter, {
-            headers: {
-                authorization: `Bearer ${token}`
-            }
-        });
+        const token = localStorage.getItem('authToken');
+        setAuthHeader(token)
+        const result = await axios.put(`${host}/api/v1/auth/${id}`, filter);
         refetch()
         toast.success(result?.data?.message)
     };
@@ -36,7 +35,7 @@ const AllStudent = () => {
     const indexOfFirstRecord = indexOfLastRecord - 20;
     const currentRecords = record?.slice(indexOfFirstRecord, indexOfLastRecord);
     const nPages = Math.ceil(record?.length / 20);
-    const admin = data?.filter(student => student?.role === "admin");
+    const moderator = data?.filter(student => student?.role === "moderator");
     const pending = data?.filter(student => student?.status === "pending");
 
     useEffect(() => {
@@ -46,10 +45,10 @@ const AllStudent = () => {
         if (select === "pending") {
             setRecord(pending)
         }
-        if (select === "admin") {
-            setRecord(admin)
+        if (select === "moderator") {
+            setRecord(moderator)
         }
-    }, [select, data, admin, pending])
+    }, [select, data, moderator, pending])
 
     if (isLoading || isStudentLoading) {
         return <Loading />
@@ -83,7 +82,7 @@ const AllStudent = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {currentRecords?.map((student, index) => <tr className={index % 2 !== 0 ? 'active' : ''} key={student?.id}>
+                        {currentRecords?.map((student, index) => <tr key={student?.id}>
                             <td data-label="Sl"><span className={`${index % 2 !== 0 && 'text-black'}`}>{index + 1}</span></td>
                             <td data-label="Name" className='link link-hover text-info'><Link to={`/student/${student?.name.replace(/\s+/g, "-")}`} state={student?.id}>{student?.name}</Link></td>
                             <td data-label="Course">{student?.email}</td>
@@ -94,18 +93,18 @@ const AllStudent = () => {
                             <td data-label="Change Role">
                                 {
                                     student?.role === "user" ? <label
-                                    htmlFor="role-change-modal"
-                                    className="btn btn-info btn-xs"
-                                    onClick={() => setRoleModal({role: 'admin', id: student?.id})}
-                                  >
-                                    Make Admin
-                                  </label> : student?.id !== currentStudent?.id && <label
-                                    htmlFor="role-change-modal"
-                                    className="btn btn-accent btn-xs"
-                                    onClick={() => setRoleModal({role: 'user', id: student?.id})}
-                                  >
-                                    Make User
-                                  </label>
+                                        htmlFor="role-change-modal"
+                                        className="btn btn-info btn-xs"
+                                        onClick={() => setRoleModal({ role: 'moderator', id: student?.id })}
+                                    >
+                                        Make Moderator
+                                    </label> : (student?.id === currentStudent?.id || student?.role === 'admin') ? " ": <label
+                                        htmlFor="role-change-modal"
+                                        className="btn btn-accent btn-xs"
+                                        onClick={() => setRoleModal({ role: 'user', id: student?.id })}
+                                    >
+                                        Make User
+                                    </label>
                                 }
                             </td>
                             <td data-label="Change Status">

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
+import { host } from '../components/shared/host';
 
 const useGetStudentById = (id) => {
     const [student, setStudent] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [isRefetch, refetch] = useState(false);
     useEffect(() => {
-        fetch(`http://localhost:4000/api/v1/student/${id}`)
+        fetch(`${host}/api/v1/student/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 if (data?.email) {

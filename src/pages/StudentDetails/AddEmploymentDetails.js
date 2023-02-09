@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { host } from '../../components/shared/host';
+import setAuthHeader from '../../components/shared/setAuthHeader';
 
 const AddEmploymentDetails = () => {
     const [checked, setChecked] = useState(false);
@@ -10,12 +12,9 @@ const AddEmploymentDetails = () => {
     const token = localStorage.getItem('authToken');
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async data => {
+        setAuthHeader(token)
         try {
-            const res = await axios.post('http://localhost:4000/api/v1/external/employment/add', data, {
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            });
+            const res = await axios.post(`${host}/api/v1/external/employment/add`, data);
             if (res?.status === 201) {
                 navigate('/dashboard')
                 toast.success('Employment Details Created Successfully');
@@ -34,7 +33,7 @@ const AddEmploymentDetails = () => {
                     <div>
                         <div className="form-control w-64 max-w-xs">
                             <label className="label">
-                                <span className="label-text">Company Name:</span>
+                                <span className="label-text">Company or Ship Name:</span>
                             </label>
                             <input
                                 type="text"

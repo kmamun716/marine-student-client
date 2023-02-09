@@ -8,15 +8,15 @@ const RequireAdmin = ({ children }) => {
     const authToken = localStorage.getItem("authToken");
     const [student, isLoading] = useGetSingleUser(authToken);
     let location = useLocation();
-    if(isLoading){
-        return <Loading/>
+    if (isLoading) {
+        return <Loading />
     }
-    if (student?.role !== 'admin') {
-        toast.warning('Authorized Access Only!')
-        localStorage.removeItem('authToken')
-        return <Navigate to="/login" state={{ from: location }} replace />;
+    if (student?.role === 'moderator' || student?.role === 'admin') {
+        return children;
     }
-    return children;
+    toast.warning('Authorized Access Only!')
+    localStorage.removeItem('authToken')
+    return <Navigate to="/login" state={{ from: location }} replace />;
 };
 
 export default RequireAdmin;

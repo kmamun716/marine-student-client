@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
+import { host } from '../components/shared/host';
 
 const useGetSingleUser = (token) => {
   const navigate = useNavigate();
   const [student, setStudent] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:4000/api/v1/auth/loggedIn", {
+    fetch(`${host}/api/v1/auth/loggedIn`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${token}`,

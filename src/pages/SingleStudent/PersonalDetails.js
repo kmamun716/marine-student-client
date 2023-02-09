@@ -19,7 +19,7 @@ const PersonalDetails = ({ details }) => {
                         <tbody>
                             <tr>
                                 <td data-label="Blood Group">{details?.bloodGroup}</td>
-                                <td data-label="Present Address">{details?.presentDistrict}, {details?.presentDistrict}</td>
+                                <td data-label="Present Address">{details?.presentDistrict}, {details?.presentCountry}</td>
                                 <td data-label="Facebook ID">{details?.facebook}</td>
                                 <td data-label="Linkedin ID">{details?.linkedIn}</td>
                                 <td data-label="Current Employment Status">{details?.employmentStatus}</td>

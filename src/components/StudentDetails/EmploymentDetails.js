@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import EditEmploymentDetailsModal from '../EditModal/EditEmploymentDetailsModal';
+import { host } from '../shared/host';
+import setAuthHeader from '../shared/setAuthHeader';
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 
 const EmploymentDetails = ({ details, refetch }) => {
@@ -10,12 +12,9 @@ const EmploymentDetails = ({ details, refetch }) => {
     const [employmentModal, setModalOpen] = useState({});
     const [deleteConfirmModal, setDeleteConfirm]= useState('');
     const handleDelete = async id => {
+        setAuthHeader(token)
         try {
-            const result = await axios.delete(`http://localhost:4000/api/v1/external/employment/delete/${id}`, {
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            });
+            const result = await axios.delete(`${host}/api/v1/external/employment/delete/${id}`);
             toast.success(result?.data?.message);
             refetch();
         } catch (err) {
@@ -55,8 +54,8 @@ const EmploymentDetails = ({ details, refetch }) => {
                             }
                         </tbody>
                     </table>
+                <Link className="btn mt-2" to="/student/details/add/employment"> Add {details?.length > 0 ? 'More' : ''} Employment Details </Link>
                 </div>
-                <Link className="link link-hover text-primary" to="/student/details/add/employment"> Add {details?.length > 0 ? 'More' : ''} Employment Details </Link>
             </div>
             {
                 employmentModal && <EditEmploymentDetailsModal refetch={refetch} setModalOpen={setModalOpen} data={employmentModal} />

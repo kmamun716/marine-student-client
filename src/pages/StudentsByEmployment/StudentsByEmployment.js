@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { host } from '../../components/shared/host';
 
 const StudentsByEmployment = () => {
     const [employees, setEmployees] = useState([]);
     const { slug } = useParams();
     useEffect(() => {
-        fetch(`http://localhost:4000/api/v1/student/employment/${slug.split('-').join(' ')}`)
+        fetch(`${host}/api/v1/student/employment/${slug.split('-').join(' ')}`)
             .then(res => res.json())
             .then(data => setEmployees(data))
             .catch(err => console.log(err))

@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { host } from "../shared/host";
+import setAuthHeader from "../shared/setAuthHeader";
 
 const EditEmploymentDetailsModal = ({ data, setModalOpen, refetch }) => {
   const [checked, setChecked] = useState(false);
@@ -23,16 +25,9 @@ const EditEmploymentDetailsModal = ({ data, setModalOpen, refetch }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setAuthHeader(token)
     try {
-      const result = await axios.put(
-        `http://localhost:4000/api/v1/external/employment/edit/${data?.id}`,
-        editData,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const result = await axios.put(`${host}/api/v1/external/employment/edit/${data?.id}`, editData);
       if (result?.status === 201) {
         refetch(true)
         toast.success(result?.data?.message);
@@ -67,7 +62,7 @@ const EditEmploymentDetailsModal = ({ data, setModalOpen, refetch }) => {
               <input
                 type="text"
                 className="input input-bordered w-full max-w-xs"
-                defaultValue={data?.companyName}
+                value={editData?.companyName}
                 onChange={handleChange}
                 name="companyName"
               />
@@ -79,7 +74,7 @@ const EditEmploymentDetailsModal = ({ data, setModalOpen, refetch }) => {
               <input
                 type="text"
                 className="input input-bordered w-full max-w-xs"
-                defaultValue={data?.groupName}
+                value={editData?.groupName}
                 onChange={handleChange}
                 name="groupName"
               />
@@ -91,7 +86,7 @@ const EditEmploymentDetailsModal = ({ data, setModalOpen, refetch }) => {
               <input
                 type="text"
                 className="input input-bordered w-full max-w-xs"
-                defaultValue={data?.department}
+                value={editData?.department}
                 onChange={handleChange}
                 name="department"
               />
@@ -104,7 +99,7 @@ const EditEmploymentDetailsModal = ({ data, setModalOpen, refetch }) => {
               <input
                 type="text"
                 className="input input-bordered w-full max-w-xs"
-                defaultValue={data?.designation}
+                value={editData?.designation}
                 onChange={handleChange}
                 name="designation"
               />
@@ -116,7 +111,7 @@ const EditEmploymentDetailsModal = ({ data, setModalOpen, refetch }) => {
               <input
                 type="text"
                 className="input input-bordered w-full max-w-xs"
-                defaultValue={data?.city}
+                value={editData?.city}
                 onChange={handleChange}
                 name="city"
               />
@@ -130,7 +125,7 @@ const EditEmploymentDetailsModal = ({ data, setModalOpen, refetch }) => {
                 type="text"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
-                defaultValue={data?.country}
+                value={editData?.country}
                 onChange={handleChange}
                 name="country"
               />
@@ -143,7 +138,7 @@ const EditEmploymentDetailsModal = ({ data, setModalOpen, refetch }) => {
                 type="number"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
-                defaultValue={data?.joiningYear}
+                value={editData?.joiningYear}
                 onChange={handleChange}
                 name="joiningYear"
               />
@@ -160,7 +155,7 @@ const EditEmploymentDetailsModal = ({ data, setModalOpen, refetch }) => {
                 type="number"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
-                defaultValue={data?.jobEnd}
+                value={checked ? 0 : editData?.jobEnd}
                 onChange={handleChange}
                 disabled={checked}
                 name="jobEnd"

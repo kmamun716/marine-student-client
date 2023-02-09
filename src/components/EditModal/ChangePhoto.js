@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import { host } from '../shared/host';
+import setAuthHeader from '../shared/setAuthHeader';
 
 const ChangePhoto = ({ details, refetch, setPhotoModal }) => {
   const token = localStorage.getItem('authToken');
@@ -9,12 +11,9 @@ const ChangePhoto = ({ details, refetch, setPhotoModal }) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('photo', image);
+    setAuthHeader(token)
     try {
-      const result = await axios.put("http://localhost:4000/api/v1/student/editPhoto", formData, {
-        headers: {
-          authorization: `Bearer ${token}`
-        }
-      });
+      const result = await axios.put(`${host}/api/v1/student/editPhoto`, formData);
       if(result?.status === 200){
         toast.success(result?.data?.message);
         refetch();

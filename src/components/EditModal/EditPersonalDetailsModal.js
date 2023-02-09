@@ -1,14 +1,17 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { toast } from 'react-toastify';
+import { host } from "../shared/host";
+import setAuthHeader from "../shared/setAuthHeader";
 
 const EditPersonalDetailsModal = ({ data, setModalOpen, refetch }) => {
   const token = localStorage.getItem("authToken");
   const [editData, setEditData] = useState({
     father: data?.father,
     mother: data?.mother,
-    presentAddress: data?.presentAddress,
-    permanentAddress: data?.permanentAddress,
+    presentRoad: data?.presentRoad,
+    presentDistrict: data?.presentDistrict,
+    presentCountry: data?.presentCountry,
     nId: data?.nId,
     facebook: data?.facebook,
     whatsApp: data?.whatsApp,
@@ -22,16 +25,9 @@ const EditPersonalDetailsModal = ({ data, setModalOpen, refetch }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setAuthHeader(token)
     try {
-      const result = await axios.put(
-        "http://localhost:4000/api/v1/student/editPersonal",
-        editData,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const result = await axios.put(`${host}/api/v1/student/editPersonal`, editData);
       if(result?.status === 201){
         refetch(true)
         toast.success(result?.data?.message)
@@ -90,22 +86,26 @@ const EditPersonalDetailsModal = ({ data, setModalOpen, refetch }) => {
               <input
                 type="text"
                 className="input input-bordered w-full max-w-xs"
-                defaultValue={data?.presentAddress}
+                defaultValue={data?.presentRoad}
                 onChange={handleChange}
-                name="presentAddress"
+                name="presentRoad"
+                placeholder="Road No or Name and State"
               />
-            </div>
-            
-            <div className="form-control w-64 max-w-xs">
-              <label className="label">
-                <span className="label-text">Permanent Address:</span>
-              </label>
+              <input
+                type="text"
+                className="input input-bordered my-1 w-full max-w-xs"
+                defaultValue={data?.presentDistrict}
+                onChange={handleChange}
+                name="presentDistrict"
+                placeholder="Present District"
+              />
               <input
                 type="text"
                 className="input input-bordered w-full max-w-xs"
-                defaultValue={data?.permanentAddress}
+                defaultValue={data?.presentCountry}
                 onChange={handleChange}
-                name="permanentAddress"
+                name="presentCountry"
+                placeholder="Present Country"
               />
             </div>
             <div className="form-control w-64 max-w-xs">

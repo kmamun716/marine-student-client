@@ -20,18 +20,16 @@ const Dashboard = () => {
                 <div className="drawer-side">
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 bg-slate-300 text-base-content">
-
                         <li><Link to='/dashboard'>Profile</Link></li>
                         {
-                            student?.status === 'active' && student?.role !== 'admin' && <li><Link to='/dashboard/search/student'>Search Student</Link></li>
+                            student?.status === 'active' && <li><Link to='/dashboard/search/student'>Search Student</Link></li>
                         }
-                        <li> <Link to="/dashboard/contact-request">Contact Request</Link> </li>
                         {
-                            student?.role === "admin" && <>
+                            (student?.role === "admin" || student?.role === 'moderator') && <>
                                 <li><Link to='/dashboard/all-student'>Student List</Link></li>
-                                <li><Link to='/dashboard/student/contact-request'>Student Contact Requests</Link></li>
                             </>
                         }
+                        <li><Link to='/dashboard/change-password'>Change Password</Link></li>
                     </ul>
                 </div>
             </div>

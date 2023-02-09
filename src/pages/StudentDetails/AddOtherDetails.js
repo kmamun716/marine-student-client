@@ -3,18 +3,17 @@ import React from 'react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { host } from '../../components/shared/host';
+import setAuthHeader from '../../components/shared/setAuthHeader';
 
 const AddOtherDetails = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem('authToken');
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async data => {
+        setAuthHeader(token)
         try {
-            const res = await axios.post('http://localhost:4000/api/v1/external/others/add', data, {
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            });
+            const res = await axios.post(`${host}/api/v1/external/others/add`, data);
             if (res?.status === 201) {
                 toast.success('Emmergency Contact Details Created Successfully');
                 navigate('/dashboard')

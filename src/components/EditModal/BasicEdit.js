@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { host } from "../shared/host";
+import setAuthHeader from "../shared/setAuthHeader";
 
 const BasicEdit = ({ details, setModalOpen, refetch }) => {
   const token = localStorage.getItem("authToken");
@@ -17,16 +19,9 @@ const BasicEdit = ({ details, setModalOpen, refetch }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setAuthHeader(token)
     try {
-      const result = await axios.put(
-        "http://localhost:4000/api/v1/student/editBasic",
-        editData,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const result = await axios.put(`${host}/api/v1/student/editBasic`, editData,);
       if (result?.status === 201) {
         refetch(true)
         toast.success(result?.data?.message);

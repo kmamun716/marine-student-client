@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { host } from '../../components/shared/host';
 
 const ResetPassword = () => {
     const { id } = useParams();
@@ -19,7 +20,7 @@ const ResetPassword = () => {
     const handleSubmit=async e=>{
         e.preventDefault();
         try{
-            const result = await axios.put(`http://localhost:4000/api/v1/auth/resetPassword/${id}`,{password: input.password});
+            const result = await axios.put(`${host}/api/v1/auth/resetPassword/${id}`,{password: input.password});
             e.target.reset();
             toast.success(result?.data?.message);
             setShowMessage(true);

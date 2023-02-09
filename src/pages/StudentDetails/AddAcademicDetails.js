@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { host } from '../../components/shared/host';
 import Loading from '../../components/shared/Loading';
+import setAuthHeader from '../../components/shared/setAuthHeader';
 import useGetSingleUser from '../../hooks/useGetSingleUser';
 import useGetUserById from '../../hooks/useGetUserById';
 
@@ -15,12 +17,9 @@ const AddAcademicDetails = () => {
     const [studentDetails, detailsLoading, refetch] = useGetUserById(student?.id);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async data => {
+        setAuthHeader(token)
         try {
-            const res = await axios.put('http://localhost:4000/api/v1/student/editBasic', data, {
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            });
+            const res = await axios.put(`${host}/api/v1/student/editBasic`, data);
             if (res?.status === 201) {
                 navigate('/dashboard')
                 toast.success('Academic Details Created Successfully');
