@@ -88,7 +88,7 @@ const EditAcademicDetailsModal = ({ data, setModalOpen, refetch }) => {
                 <option value="passed">Completed</option>
               </select>
             </div>
-            {editData?.status === "passed" && (
+            {editData?.academicStatus === "passed" && (
               <div className="form-control w-64 max-w-xs">
                 <label className="label">
                   <span className="label-text">Passing Year :</span>
@@ -96,7 +96,7 @@ const EditAcademicDetailsModal = ({ data, setModalOpen, refetch }) => {
                 <input
                   type="number"
                   className="input input-bordered w-64 max-w-xs"
-                  defaultValue={editData?.passingYear}
+                  value={editData?.academicStatus === "passed" ? editData?.passingYear : 0}
                   onChange={handleChange}
                   name="passingYear"
                 />
